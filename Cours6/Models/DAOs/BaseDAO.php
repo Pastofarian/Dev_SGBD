@@ -1,6 +1,6 @@
 <?php
 
-abstract class BaseDAO {
+abstract class BaseDAO implements InterfaceDAO {
 
     protected $db;
     protected $tableName; //protected permets aux enfant de modifier la variable
@@ -15,9 +15,36 @@ abstract class BaseDAO {
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
     }
     
-    // 
+
     abstract protected function createEntity($data);
 
+    public function insertStore ($statement, $data, $obj) { 
+        try {
+            $statement->execute($data);
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            $obj->id = $this->db->lastInsertId();
+            return $obj;
+        } catch (PDOException $exception) {
+            var_dump($exception);
+            return false;
+        }
+    }
+
+    public function insertUpdate ($statement, $data, $obj) { 
+        try {
+            $statement->execute([$console->name, $console->id]);
+            $rowsAffected = $statement->rowCount();
+            
+            if ($rowsAffected > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $exception) {
+            var_dump($exception);
+            return false;
+        }
+    }
     
     public function fetch ($id) {
         $statement = $this->db->prepare("SELECT * FROM {$this->tableName} WHERE id = ?");
@@ -99,20 +126,3 @@ abstract class BaseDAO {
     }
 
 }
-
-    // public function save(array $columns, array $values) {
-    //     $columnNames = implode(', ', $columns);
-    //     $placeholders = implode(', ', array_fill(0, count($values), '?'));
-    
-    //     $statement = $this->db->prepare("INSERT INTO {$this->tableName} ({$columnNames}) VALUES ({$placeholders})");
-    //     try {
-    //         $statement->execute($values);
-    //         $lastInsertId = $this->db->lastInsertId();
-    //         return $lastInsertId;
-    //     } catch (PDOException $exception) {
-    //         var_dump($exception);
-    //         return false;
-    //     }
-    // }
-    
-    

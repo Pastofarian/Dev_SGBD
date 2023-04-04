@@ -1,18 +1,19 @@
 <?php
 
-require_once('Models/Entities/BaseEntity.php');
-
-class Console extends BaseEntity {
+class Type extends BaseEntity {
     protected $id;
     protected $name;
+    protected $games;
+
+    protected static $dao = "TypeDAO";
     
-    public function __construct ($id, $name) {
+    public function __construct ($id, $name, $games) {
         $this->id = $id;
         $this->name = $name;
+        $this->games = $games;
     }
-
+    
     public function __toString () {
         return "{$this->id} : {$this->name}";
     }
-
 }

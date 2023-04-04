@@ -2,43 +2,44 @@
 
 require_once('Models/DAOs/BaseDAO.php');
 
-class GameDAO extends BaseDAO {
-
+class TypeDAO extends BaseDAO {
     public function __construct() {
-        parent::__construct('games');
+        parent::__construct('type');
     }
 
-        public function createEntity ($data) {
+    public function createEntity ($data) {
         if (empty($data["id"])) {
             return false;
         }
-        return new Game(
+        return new Type (
             $data["id"] ?? false,
             $data["name"] ?? false,
-            Type::find($data["type_id"]) ?? false
+            Game::where('type_id', $data["id"])
         );
     }
 
-    public function store ($game) {
-        $statement = $this->db->prepare("INSERT INTO {$this->tableName} (name, type) VALUES (?, ?)");
-        return parent::insertStore($statement, [$game->name, $game->type], $game);
+    public function store ($type) {
+        $statement = $this->db->prepare("INSERT INTO type (name) VALUES (?)");
+        return parent::insert($statement, [$type->name], $type);
+
+        // $statement = $this->db->prepare("INSERT INTO type (name) VALUES (?)");
         // try {
-        //     $statement->execute([$game->name, $game->type]);
+        //     $statement->execute([$console->name]);
         //     $connection_db = $this->db;
         //     $derniere_id = $connection_db->lastInsertId();
-        //     $game->id = $derniere_id;
-        //     return $game;
+        //     $console->id = $derniere_id;
+        //     return $console;
         // } catch (PDOException $exception) {
         //     var_dump($exception);
         //     return false;
         // }
     }
 
-    public function update($game) {
-        $statement = $this->db->prepare("UPDATE {$this->tableName} SET name = ?, type = ? WHERE id = ?");
-        return parent::insertUpdate($statement, [$game->name, $game->type, $game->id], $game);
+    public function update($type) {
+        $statement = $this->db->prepare("INSERT INTO type (name) VALUES (?)");
+        return parent::insertUpdate($statement, [$type->name], $type);
         // try {
-        //     $statement->execute([$game->name, $game->type, $game->id]);
+        //     $statement->execute([$console->name, $console->id]);
         //     $rowsAffected = $statement->rowCount();
             
         //     if ($rowsAffected > 0) {
@@ -51,5 +52,4 @@ class GameDAO extends BaseDAO {
         //     return false;
         // }
     }
-
 }

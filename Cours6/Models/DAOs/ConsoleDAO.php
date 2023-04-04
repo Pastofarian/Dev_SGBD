@@ -20,33 +20,37 @@ class ConsoleDAO extends BaseDAO {
 
     public function store ($console) {
         $statement = $this->db->prepare("INSERT INTO consoles (name) VALUES (?)");
-        try {
-            $statement->execute([$console->name]);
-            $connection_db = $this->db;
-            $derniere_id = $connection_db->lastInsertId();
-            $console->id = $derniere_id;
-            return $console;
-        } catch (PDOException $exception) {
-            var_dump($exception);
-            return false;
-        }
+        return parent::insertStore($statement, [$console->name], $console);
+    
+        // try {
+        //     $statement->execute([$console->name]);
+        //     $connection_db = $this->db;
+        //     $derniere_id = $connection_db->lastInsertId();
+        //     $console->id = $derniere_id;
+        //     return $console;
+        // } catch (PDOException $exception) {
+        //     var_dump($exception);
+        //     return false;
+        // }
     }
 
     public function update($console) {
-        $statement = $this->db->prepare("UPDATE consoles SET name = ? WHERE id = ?");
-        try {
-            $statement->execute([$console->name, $console->id]);
-            $rowsAffected = $statement->rowCount();
+        $statement = $this->db->prepare("INSERT INTO consoles (name) VALUES (?)");
+        return parent::insertUpdate($statement, [$console->name], $console);
+        
+        // try {
+        //     $statement->execute([$console->name, $console->id]);
+        //     $rowsAffected = $statement->rowCount();
             
-            if ($rowsAffected > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (PDOException $exception) {
-            var_dump($exception);
-            return false;
-        }
+        //     if ($rowsAffected > 0) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // } catch (PDOException $exception) {
+        //     var_dump($exception);
+        //     return false;
+        // }
     }
 
 }

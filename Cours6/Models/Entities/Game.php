@@ -2,15 +2,20 @@
 
 require_once('Models/Entities/BaseEntity.php');
 
-class Game extends Entity {
+class Game extends BaseEntity {
+    protected $id;
+    protected $name;
     protected $type;
+    protected static $dao = "GameDAO";
     
     public function __construct ($id, $name, $type) {
-        parent::__construct($id, $name);
+        $this->id = $id;
+        $this->name = $name;
         $this->type = $type;
     }
     
     public function __toString () {
         return "{$this->id} : {$this->name} ({$this->type})";
     }
+
 }
