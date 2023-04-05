@@ -1,7 +1,5 @@
 <?php
 
-require_once('Models/DAOs/BaseDAO.php');
-
 class GameDAO extends BaseDAO {
 
     public function __construct() {

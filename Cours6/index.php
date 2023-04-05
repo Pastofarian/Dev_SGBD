@@ -4,17 +4,16 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
 
-
-require_once('Models/DAOs/InterfaceDAO.php');
-require_once('Models/Entities/InterfaceEntity.php');
-require_once('Models/DAOs/BaseDAO.php');
-
-require_once('Models/DAOs/GameDAO.php');
+require_once('Models/Entities/BaseEntity.php');
 require_once('Models/Entities/Game.php');
-require_once('Models/DAOs/ConsoleDAO.php');
 require_once('Models/Entities/Console.php');
-require_once('Models/DAOs/TypeDAO.php');
 require_once('Models/Entities/Type.php');
+// require_once('Models/Entities/InterfaceEntity.php');
+require_once('Models/DAOs/InterfaceDAO.php');
+require_once('Models/DAOs/BaseDAO.php');
+require_once('Models/DAOs/GameDAO.php');
+require_once('Models/DAOs/ConsoleDAO.php');
+require_once('Models/DAOs/TypeDAO.php');
 
 
 
@@ -32,9 +31,9 @@ echo "<pre>";
 print_r($gameDao->fetch_all());
 echo "</pre>";
 
-echo "<h3>fetch game(2)</h3>";
+echo "<h3>fetch game(12)</h3>";
 echo "<pre>";
-print_r($gameDao->fetch(2));
+print_r($gameDao->fetch(12));
 echo "</pre>";
 
 $destroyGame = new GameDAO();
@@ -42,15 +41,15 @@ $destroyGame = new GameDAO();
 
 
 $whereGame = new GameDAO();
-echo "<h3>where game(type, 2)</h3>";
+echo "<h3>where game(type_id, 3)</h3>";
 echo "<pre>";
-print_r($whereGame->where("type_id", "2"));
+print_r($whereGame->where("type_id", "3"));
 echo "</pre>";
 
 $firstGame = new GameDAO();
-echo "<h3>First game(type, Souls like)</h3>";
+echo "<h3>First game(type_id, 4)</h3>";
 echo "<pre>";
-print_r($firstGame->first("type", "Souls like"));
+print_r($firstGame->first("type_id", "4"));
 echo "</pre>";
 
 //$gameDao->update($marioKart);
@@ -59,7 +58,6 @@ echo "</pre>";
 
 $sega = new Console(false, "Sega");
 $xbox = new Console(3, "Xbox");
-
 
 
 $consoleDao = new ConsoleDao();
@@ -91,9 +89,7 @@ echo "</pre>";
 
 //$consoleDao->update($xbox);
 
-
-
-//Type
+//Type tests
 $typeDAO = new TypeDAO();
 
 echo "<h3>fetch_all Type</h3>";
@@ -101,18 +97,57 @@ echo "<pre>";
 print_r($typeDAO->fetch_all());
 echo "</pre>";
 
-//Static
-echo "<h3>fetch_all static </h3>";
+
+/************************************************************************************ */
+echo "<h1>Exercices</h1>";
+/*
+A rendre pour le mercredi 5 avril 23:59 en m'envoyant votre code en message privé sur discord
+
+Ce qu'il faut faire : 
+1)
+ - Notre code tombe dans une boucle infinie ou notre Game récupère son Type qui récupère ses Games à l'infini
+ - Faites en sorte de gérer notre relation one 2 many / many 2 one sans que cela génère une boucle infinie
+ - Vous disposez d'un exemple de ce que j'attends ci-dessous
+ 
+ 2)
+ - Une fois que cela fonctionne, simplifier la gestion des relations one2many / many2one en ajoutant une couche d'abstraction dans vos classes abstraites
+*/
+
+//Exemple de ce que j'attends
+$elden = Game::first('name', 'Elden Ring');
+
+// $elden->type->name //Souls like
+// $elden->type->games //[Obj Game : Dark Souls 3, Obj Game : Elden Ring]
+// $elden->type->games[0]->name //Dark Souls 3
+// $elden->type->games[0]->type->name //Souls like
+
+echo "<h3>elden->type->name //Souls like</h3>";
+$type_name = $elden->getType()->name;
+echo $type_name; 
+
+echo "<h3>elden->type->games //[Obj Game : Dark Souls 3, Obj Game : Elden Ring]</h3>";
+$type_games = $elden->getType()->getGames();
 echo "<pre>";
-print_r(Game::all());
-echo "</pre>";
-
-$marioWorld = new Game(false, "Mario World", "2");
-echo "<h3>store static </h3>";
+print_r($type_games); 
 echo "<pre>";
-print_r($marioWorld->save());
-echo "</pre>";
+
+echo "<h3>elden->type->games[0]->name //Dark Souls 3</h3>";
+$first_game_name = $type_games[0]->name;
+echo $first_game_name; 
+
+echo "<h3>elden->type->games[0]->type->name //Souls like</h3>";
+$first_game_type_name = $type_games[0]->getType()->name;
+echo $first_game_type_name; 
 
 
+// $gameDAO = new GameDAO();
+// $games = $gameDAO->where('type_id', 1); 
+// echo '<pre>';
+// print_r($games);
+// echo '</pre>';
 
-
+// $typeDAO = new TypeDAO();
+// $types = $typeDAO->where('id', 1); 
+// echo '<pre>';
+// print_r($types);
+// echo '</pre>';

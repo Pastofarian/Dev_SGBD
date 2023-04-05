@@ -50,4 +50,5 @@ class BaseEntity {
         $dao = new static::$dao();
         return $dao->destroy($this->id);
     }
+
 }

@@ -32,7 +32,7 @@ abstract class BaseDAO implements InterfaceDAO {
 
     public function insertUpdate ($statement, $data, $obj) { 
         try {
-            $statement->execute([$console->name, $console->id]);
+            $statement->execute([$obj->name, $obj->id]);
             $rowsAffected = $statement->rowCount();
             
             if ($rowsAffected > 0) {

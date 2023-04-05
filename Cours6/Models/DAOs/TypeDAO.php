@@ -1,10 +1,8 @@
 <?php
 
-require_once('Models/DAOs/BaseDAO.php');
-
 class TypeDAO extends BaseDAO {
     public function __construct() {
-        parent::__construct('type');
+        parent::__construct('types');
     }
 
     public function createEntity ($data) {
@@ -14,7 +12,6 @@ class TypeDAO extends BaseDAO {
         return new Type (
             $data["id"] ?? false,
             $data["name"] ?? false,
-            Game::where('type_id', $data["id"])
         );
     }
 
@@ -36,7 +33,7 @@ class TypeDAO extends BaseDAO {
     }
 
     public function update($type) {
-        $statement = $this->db->prepare("INSERT INTO type (name) VALUES (?)");
+        $statement = $this->db->prepare("UPDATE type SET name = ? WHERE id = ?");
         return parent::insertUpdate($statement, [$type->name], $type);
         // try {
         //     $statement->execute([$console->name, $console->id]);

@@ -1,7 +1,5 @@
 <?php
 
-require_once('Models/Entities/BaseEntity.php');
-
 class Console extends BaseEntity {
     protected $id;
     protected $name;

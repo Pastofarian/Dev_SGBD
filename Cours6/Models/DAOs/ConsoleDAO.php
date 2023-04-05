@@ -1,7 +1,5 @@
 <?php
 
-require_once('Models/DAOs/BaseDAO.php');
-
 class ConsoleDAO extends BaseDAO {
 
     public function __construct() {
@@ -35,8 +33,8 @@ class ConsoleDAO extends BaseDAO {
     }
 
     public function update($console) {
-        $statement = $this->db->prepare("INSERT INTO consoles (name) VALUES (?)");
-        return parent::insertUpdate($statement, [$console->name], $console);
+        $statement = $this->db->prepare("UPDATE consoles SET name = ? WHERE id = ?");
+        return parent::insertUpdate($statement, [$console->name, $console->id], $console);
         
         // try {
         //     $statement->execute([$console->name, $console->id]);
