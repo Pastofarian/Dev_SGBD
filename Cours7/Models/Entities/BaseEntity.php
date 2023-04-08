@@ -42,12 +42,10 @@ class BaseEntity {
             return $dao->update($this);
         }
     }
-    
-    
 
     public function delete ($id) { 
         $dao = new static::$dao();
-        return $dao->destroy($this->id);
+        return $dao->destroy($id);
     }
 
 }

@@ -28,9 +28,10 @@ include('partials/Header.php');
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
+                    <th>Nom</th>
                     <th>Type</th>
                     <th>Update</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,6 +44,7 @@ include('partials/Header.php');
                     echo "<td>" . $game->name . "</td>";
                     echo "<td>" . $game->getType()->name . "</td>";
                     echo "<td><a href='updateGames.php?id={$game->id}' class='btn custom-button'>Update</a></td>";
+                    echo "<td><a href='../Controllers/deleteGames.php?id={$game->id}' class='btn btn-danger'>Delete</a></td>";
                     echo "</tr>";
                 }
                 ?>
