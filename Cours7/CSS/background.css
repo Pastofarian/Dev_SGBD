@@ -1,0 +1,21 @@
+body {
+    background-image: url('../Images/epic-games-store-1254466.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-top: 4rem;
+}
+
+tr {
+    background-color: white;
+}
+
+h1 {
+    color: white;
+}
+
+.custom-button {
+    background-color: rgb(169, 123, 97, 0.7);
+    color: #ffffff;
+}
