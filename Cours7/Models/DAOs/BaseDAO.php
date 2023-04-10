@@ -81,6 +81,13 @@ abstract class BaseDAO implements InterfaceDAO {
     }
     
     public function destroy ($id) {
+
+        $defaultTypeId = "1";
+
+        // Update games avec un type par default "Type Inconnu - id 1"
+        $updateStatement = $this->db->prepare("UPDATE games SET type_id = ? WHERE type_id = ?");
+        $updateStatement->execute([$defaultTypeId, $id]);
+
         $statement = $this->db->prepare("DELETE FROM {$this->tableName} WHERE id = ?");
         try {
             $statement->execute([$id]);

@@ -5,11 +5,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 require_once('../autoload.php');
 
-if (isset($_SESSION['error_message'])) {
-    echo $_SESSION['error_message'];
-    // Unset the error message after displaying it
-    unset($_SESSION['error_message']);
-}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = isset($_POST['name']) ? $_POST['name'] : '';
     $typeId = isset($_POST['type_select']) ? intval($_POST['type_select']) : null;

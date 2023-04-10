@@ -29,6 +29,8 @@ include('partials/Header.php');
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Update</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +41,8 @@ include('partials/Header.php');
                     echo "<tr>";
                     echo "<td>" . $console->id . "</td>";
                     echo "<td>" . $console->name . "</td>";
+                    echo "<td><a href='updateConsole.php?id={$console->id}' class='btn custom-button'>Update</a></td>";
+                    echo "<td><a href='../Controllers/deleteConsole.php?id={$console->id}' class='btn btn-danger'>Delete</a></td>";
                     echo "</tr>";
                 }
                 ?>

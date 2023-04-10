@@ -19,7 +19,13 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link custom-link" href="../Views/createGame.php">Create</a>
+                        <a class="nav-link custom-link" href="../Views/createGame.php">Créer un jeu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link custom-link" href="../Views/createConsole.php">Créer une console</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link custom-link" href="../Views/createType.php">Créer un type</a>
                     </li>
                 </ul>
             </div>

@@ -29,6 +29,8 @@ include('partials/Header.php');
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Update</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,6 +41,9 @@ include('partials/Header.php');
                     echo "<tr>";
                     echo "<td>" . $type->id . "</td>";
                     echo "<td>" . $type->name . "</td>";
+                    echo "<td><a href='updateType.php?id={$type->id}' class='btn custom-button'>Update</a></td>";
+                    echo "<td><a href='../Controllers/deleteType.php?id={$type->id}' class='btn btn-danger'>Delete</a></td>";
+                    echo "</tr>";
                     echo "</tr>";
                 }
                 ?>
