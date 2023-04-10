@@ -34,7 +34,7 @@
          <form action="../Controllers/updateGame_process.php" method="post">
             <input type="hidden" name="id" value="<?php echo $game->id; ?>">
             <div class="form-group">
-               <label for="name">Name:</label>
+               <label for="name">Nom:</label>
                <input type="text" class="form-control" id="name" name="name" value="<?php echo $game->name; ?>">
             </div>
             <div class="form-group">
@@ -53,7 +53,7 @@
                document.getElementById('type_id').value = this.value;
                });
             </script>
-            <button type="submit" class="btn btn-primary">Update Game</button>
+            <button type="submit" class="btn btn-primary">Update du jeu</button>
          </form>
       </div>
    </body>

@@ -17,6 +17,11 @@
                         <a class="nav-link" href="Types.php">Type</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link custom-link" href="../Views/createGame.php">Create</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>

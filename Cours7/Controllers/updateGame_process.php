@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $game->name = $gameName;
     $game->type_id = $gameTypeId;
 
-    $game->save();
+    $game->saveUpdate();
 
     header('Location: ../Views/Games.php');
 
@@ -31,7 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // print_r("game" . " " . $game);
     // echo "</pre>";
     // $result = $game->save();
-    // var_dump($result);
+    // echo "<pre>";
+    // print_r("game" . " " . $result);
+    // echo "</pre>";
   }
 }
 

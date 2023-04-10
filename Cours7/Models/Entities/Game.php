@@ -7,7 +7,7 @@ class Game extends BaseEntity {
     protected $type;
     protected static $dao = "GameDAO";
     
-    public function __construct ($id, $name, $type_id) {
+    public function __construct ($id, $name, $type_id) { 
         $this->id = $id;
         $this->name = $name;
         $this->type_id = $type_id;
@@ -28,4 +28,3 @@ class Game extends BaseEntity {
 
 }
 
-//https://docs.php.earth/php/ref/oop/design-patterns/lazy-loading/

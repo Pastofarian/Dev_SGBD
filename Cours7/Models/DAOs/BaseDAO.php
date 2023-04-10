@@ -25,11 +25,11 @@ abstract class BaseDAO implements InterfaceDAO {
             $obj->id = $this->db->lastInsertId();
             return $obj;
         } catch (PDOException $exception) {
-            var_dump($exception);
+            echo "Error in insertStore: " . $exception->getMessage();
             return false;
         }
     }
-
+    
     public function insertUpdate($statement, $data, $obj) {
         try {
             $statement->execute($data);
