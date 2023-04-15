@@ -27,9 +27,8 @@ class IngredientEntity extends Entity {
     
     public function recipes() {
         if ($this->recipes === false) {
-            // Replace with the actual method used in your application to fetch the related Recipe objects
-            $this->recipes = $this->belongsToMany(Recipe::class, "recipes", "IngredientRecipe", "ingredient_id", "recipe_id");
+            $this->recipes = $this->belongsToMany(RecipeEntity::class, "recipes", "ingredientRecipe", "ingredient_id", "recipe_id");
         }
-        return $this->recipes;
+        return $this->recipes ?: [];
     }
 }

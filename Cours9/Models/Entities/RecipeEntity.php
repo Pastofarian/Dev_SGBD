@@ -33,18 +33,17 @@ class RecipeEntity extends Entity {
     }
     
     public function category() {
-        if ($this->category === null) {
-            // Replace with the actual method used in your application to fetch the related Category object
-            $this->category = $this->belongsTo(Category::class, "category_id");
+        if ($this->category === false) {
+            $this->category = $this->belongsTo(CategoryEntity::class, "category_id");
         }
         return $this->category;
-    }
+    }    
     
     public function ingredients() {
         if ($this->ingredients === false) {
-            // Replace with the actual method used in your application to fetch the related Ingredient objects
-            $this->ingredients = $this->belongsToMany(Ingredient::class, "ingredients", "IngredientRecipe", "recipe_id", "ingredient_id");
+            $this->ingredients = $this->belongsToMany(IngredientEntity::class, "ingredients", "ingredientRecipe", "recipe_id", "ingredient_id");
         }
-        return $this->ingredients;
+        return $this->ingredients ?: []; // Retourne un tableau vide si il n'y a pas d'ingrédients
     }
+    
 }

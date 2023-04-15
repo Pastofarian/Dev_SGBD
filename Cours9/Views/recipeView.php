@@ -28,7 +28,9 @@ include('partials/header.php');
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Catégorie</th>
                     <th>Nom</th>
+                    <th>Ingredients</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -38,9 +40,18 @@ include('partials/header.php');
                 $allRecipes = RecipeEntity::all();
 
                 foreach ($allRecipes as $recipe) {
+                    $ingredients = $recipe->ingredients;
+                    $ingredientNames = array_map(function($ingredient) {
+                        return $ingredient->name;
+                    }, $ingredients);
+                    $ingredientList = implode(", ", $ingredientNames);
+
                     echo "<tr>";
                     echo "<td>" . $recipe->id . "</td>";
+                    echo "<td>" . $recipe->category->name . "</td>";
+                    $categoryName = $recipe->category ? $recipe->category->name : 'Pas de catégorie';
                     echo "<td>" . $recipe->name . "</td>";
+                    echo "<td>" . $ingredientList . "</td>";
                     echo "<td><a href='updateRecipeView.php?id={$recipe->id}' class='btn custom-button'>Update</a></td>";
                     echo "<td><a href='../Controllers/deleteRecipeController.php?id={$recipe->id}' class='btn btn-danger'>Delete</a></td>";
                     echo "</tr>";

@@ -71,6 +71,7 @@ abstract class Dao implements InterfaceDao {
         try {
             $statement->execute([$value]);
             $result = $statement->fetch(PDO::FETCH_ASSOC);
+            //file_put_contents('/tmp/debug.txt', $exception->getMessage()); 
             if ($result) {
                 return $this->create($result);
             }

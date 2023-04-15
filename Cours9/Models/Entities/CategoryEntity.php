@@ -26,6 +26,10 @@ class CategoryEntity extends Entity {
     }
     
     public function recipes() {
-        return $this->hasMany(Recipe::class, "recipes", "category_id");
+        if ($this->recipes === false) {
+            $this->recipes = $this->hasMany(RecipeEntity::class, "recipes", "category_id");
+        }
+        return $this->recipes ?: []; // Retourne un tableau vide si il n'y a pas de recette
     }
+    
 }

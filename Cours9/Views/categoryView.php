@@ -29,6 +29,7 @@ include('partials/header.php');
                 <tr>
                     <th>ID</th>
                     <th>Nom</th>
+                    <th>Recettes dans ces catégories</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -38,9 +39,18 @@ include('partials/header.php');
                 $allCategory = CategoryEntity::all();
 
                 foreach ($allCategory as $category) {
+                    if ($category->id == -1) { // on skip si c'est la catégorie pas défaut
+                        continue;
+                    }
+                    $recipes = $category->recipes;
+                    $recipeNames = array_map(function($recipe) {
+                        return $recipe->name;
+                    }, $recipes);
+                    $recipeList = implode(", ", $recipeNames);
                     echo "<tr>";
                     echo "<td>" . $category->id . "</td>";
                     echo "<td>" . $category->name . "</td>";
+                    echo "<td>" . $recipeList . "</td>";
                     echo "<td><a href='updateCategoryView.php?id={$category->id}' class='btn custom-button'>Update</a></td>";
                     echo "<td><a href='../Controllers/deleteCategoryController.php?id={$category->id}' class='btn btn-danger'>Delete</a></td>";
                     echo "</tr>";

@@ -29,6 +29,7 @@ include('partials/header.php');
                 <tr>
                     <th>ID</th>
                     <th>Nom</th>
+                    <th>Présent dans les recettes</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -38,9 +39,15 @@ include('partials/header.php');
                 $allIngredients = IngredientEntity::all();
 
                 foreach ($allIngredients as $ingredient) {
+                    $recipes = $ingredient->recipes;
+                    $recipeNames = array_map(function($recipe) {
+                        return $recipe->name;
+                    }, $recipes);
+                    $recipeList = implode(", ", $recipeNames);
                     echo "<tr>";
                     echo "<td>" . $ingredient->id . "</td>";
                     echo "<td>" . $ingredient->name . "</td>";
+                    echo "<td>" . $recipeList . "</td>";
                     echo "<td><a href='updateIngredientView.php?id={$ingredient->id}' class='btn custom-button'>Update</a></td>";
                     echo "<td><a href='../Controllers/deleteIngredientController.php?id={$ingredient->id}' class='btn btn-danger'>Delete</a></td>";
                     echo "</tr>";
