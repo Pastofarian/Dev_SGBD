@@ -12,6 +12,7 @@ class TypeDAO extends BaseDAO {
         return new Type (
             $data["id"] ?? false,
             $data["name"] ?? false,
+            false
         );
     }
 

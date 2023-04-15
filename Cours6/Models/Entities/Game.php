@@ -27,6 +27,14 @@ class Game extends BaseEntity {
         return $this->type;
     }
 
+    public function consoles () {
+        return $this->belongsToMany(Console::class, "consoles", "console_game", "game_id", "console_id");
+    }
+    
+    public function type () {
+        return $this->belongsTo(Type::class, "type");
+    }
+
 }
 
 //https://docs.php.earth/php/ref/oop/design-patterns/lazy-loading/

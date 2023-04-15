@@ -51,4 +51,29 @@ class BaseEntity {
         return $dao->destroy($this->id);
     }
 
+    public function belongsTo ($class, $prop) {
+        if (!$this->$prop instanceof $class) {
+            $this->$prop = $class::first('id', $this->$prop);
+        }
+        return $this->$prop;
+    }
+    
+    public function hasMany ($class, $prop, $name) {
+        if (!$this->$prop) {
+            $this->$prop = $class::where($name, $this->id);
+        }
+        return $this->$prop;
+    }
+    
+    public function belongsToMany($class, $prop, $table, $key, $foreign) {
+        if (!$this->$prop) {
+            $this->$prop = $class::intermediate($table, $key, $this->id, $foreign);
+        }
+        return $this->$prop;
+    }
+    
+    public static function intermediate($table, $key, $value, $foreign) {
+        return (new static::$dao)->intermediate($table, $key, $value, $foreign);
+    }
+
 }

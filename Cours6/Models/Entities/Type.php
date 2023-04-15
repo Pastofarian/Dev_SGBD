@@ -22,4 +22,8 @@ class Type extends BaseEntity {
         }
         return $this->games;
     }
+
+    public function games () {
+        return $this->hasMany(Game::class, "games", "type_id");
+    }
 }

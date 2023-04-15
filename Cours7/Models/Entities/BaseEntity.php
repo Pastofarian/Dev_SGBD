@@ -7,7 +7,7 @@ class BaseEntity {
             return $this->$prop;
         }
     }
-    
+
     public function __set ($prop, $value) {
         if (property_exists($this, $prop)) {
             $this->$prop = $value;
@@ -34,26 +34,26 @@ class BaseEntity {
         return $dao->first($attr, $value);
     }
 
-    // public function save() {
+     public function save() {
+         $dao = new static::$dao();
+         if (!$this->id) {
+             return $dao->store($this);
+         } else {
+             return $dao->update($this);
+         }
+     }
+
+    // public function saveStore() {
     //     $dao = new static::$dao();
-    //     if ($this->id === null) {
     //         return $dao->store($this);
-    //     } else {
-    //         return $dao->update($this);
-    //     }
     // }
 
-    public function saveStore() {
-        $dao = new static::$dao();
-            return $dao->store($this);
-    }
+    // public function saveUpdate() {
+    //     $dao = new static::$dao();
+    //         return $dao->update($this);
+    // }
 
-    public function saveUpdate() {
-        $dao = new static::$dao();
-            return $dao->update($this);
-    }
-    
-    public function delete ($id) { 
+    public function delete ($id) {
         $dao = new static::$dao();
         return $dao->destroy($id);
     }
