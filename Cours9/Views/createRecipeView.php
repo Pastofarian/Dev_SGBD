@@ -9,6 +9,7 @@ ini_set('display_startup_errors', 1);
 //devrait être dans mon controller
 require_once('../autoload.php');
 $categories = CategoryEntity::all();
+$allIngredients = IngredientEntity::all();
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +43,16 @@ $categories = CategoryEntity::all();
                 <?php endforeach; ?>
             </select>
         </div>
+        <div class="form-group">
+        <label for="ingredients">Ingrédients:</label>
+        <select class="form-control" id="ingredients" name="ingredients[]" multiple>
+            <?php
+            foreach ($allIngredients as $ingredient) {
+                echo "<option value='{$ingredient->id}'>{$ingredient->name}</option>";
+            }
+            ?>
+        </select>
+    </div>
         <button type="submit" class="btn btn-primary">Créer une recette</button>
     </form>
 </div>

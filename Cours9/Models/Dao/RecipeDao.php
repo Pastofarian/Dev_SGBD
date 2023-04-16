@@ -27,4 +27,17 @@ class RecipeDao extends Dao {
             false
         );
     }
+
+    public function removeIngredients($recipeId) {
+        // Retire tous les ingrédients de la recette
+        $statement = $this->db->prepare("DELETE FROM ingredientRecipe WHERE recipe_id = ?");
+        $statement->execute([$recipeId]);
+    }
+
+    public function addIngredient($recipeId, $ingredientId) {
+        // rajoute les ingrédients à la relation
+        $statement = $this->db->prepare("INSERT INTO ingredientRecipe (recipe_id, ingredient_id) VALUES (?, ?)");
+        $statement->execute([$recipeId, $ingredientId]);
+    }
+
 }

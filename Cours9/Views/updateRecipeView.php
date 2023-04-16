@@ -28,16 +28,43 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
    </head>
    <body>
-      <div class="container">
-         <h1>Update recette</h1>
-         <form action="../Controllers/updateRecipeController.php" method="post">
-            <input type="hidden" name="id" value="<?php echo $recipe->id; ?>">
-            <div class="form-group">
-               <label for="name">Nom:</label>
-               <input type="text" class="form-control" id="name" name="name" value="<?php echo $recipe->name; ?>">
-            </div>
-            <button type="submit" class="btn btn-primary">Update de la recette</button>
-         </form>
+  <div class="container">
+    <h1>Update recette</h1>
+    <form action="../Controllers/updateRecipeController.php" method="post">
+      <input type="hidden" name="id" value="<?php echo $recipe->id; ?>">
+      <div class="form-group">
+        <label for="name">Nom:</label>
+        <input type="text" class="form-control" id="name" name="name" value="<?php echo $recipe->name; ?>">
       </div>
-   </body>
+      <div class="form-group">
+        <label for="category">Catégorie:</label>
+        <select class="form-control" id="category" name="category_id">
+          <?php
+          $allCategories = CategoryEntity::all();
+          foreach ($allCategories as $category) {
+            $selected = ($recipe->category && $recipe->category->id == $category->id) ? 'selected' : '';
+            echo "<option value='{$category->id}' {$selected}>{$category->name}</option>";
+          }
+          ?>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="ingredients">Ingrédients:</label>
+        <select class="form-control" id="ingredients" name="ingredients[]" multiple>
+          <?php
+          $allIngredients = IngredientEntity::all();
+          $recipeIngredientIds = array_map(function($ingredient) { return $ingredient->id; }, $recipe->ingredients);
+          foreach ($allIngredients as $ingredient) {
+            $selected = in_array($ingredient->id, $recipeIngredientIds) ? 'selected' : '';
+            echo "<option value='{$ingredient->id}' {$selected}>{$ingredient->name}</option>";
+          }
+          ?>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Update de la recette</button>
+    </form>
+  </div>
+</body>
+
 </html>

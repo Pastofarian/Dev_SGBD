@@ -1,3 +1,4 @@
+
 CREATE TABLE categories (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL
@@ -9,12 +10,8 @@ VALUES (-1, 'Catégorie inconnue');
 CREATE TABLE recipes (
    id INT PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(255) NOT NULL,
-   category_id INT DEFAULT -1,
-   FOREIGN KEY (category_id) REFERENCES categories(id) 
-   ON DELETE SET DEFAULT 
-   ON UPDATE SET DEFAULT 
+   category_id INT DEFAULT -1
 );
-
 
 CREATE TABLE ingredients (
   id INT PRIMARY KEY AUTO_INCREMENT,

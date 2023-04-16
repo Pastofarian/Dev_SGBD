@@ -123,4 +123,5 @@ abstract class Dao implements InterfaceDao {
             var_dump($exception);
         }
     }
+
 }

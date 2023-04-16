@@ -40,24 +40,12 @@ abstract class Entity implements InterfaceEntity {
         return (new static::$dao)->first($attr, $value);
     }
     
-    // public function belongsTo ($class, $prop) {
-    //     if (!$this->$prop instanceof $class) {
-    //         $this->$prop = $class::first('id', $this->$prop);
-    //     }
-    //     return $this->$prop;
-    // }
     public function belongsTo ($class, $prop) {
         if (!$this->$prop instanceof $class) {
             $this->$prop = $class::first('id', $this->$prop);
-    
-            // Debugging code
-            if ($this->$prop === false) {
-                echo "Error: Unable to find {$class} with id {$this->$prop} <br>";
-            }
         }
         return $this->$prop;
-    }
-    
+    }  
     
     public function hasMany ($class, $prop, $name) {
         if (!$this->$prop) {

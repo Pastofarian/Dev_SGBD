@@ -45,5 +45,13 @@ class RecipeEntity extends Entity {
         }
         return $this->ingredients ?: []; // Retourne un tableau vide si il n'y a pas d'ingrédients
     }
-    
+
+    public static function removeIngredients($recipeId) {
+        return (new static::$dao )->removeIngredients($recipeId);
+    }
+
+    public static function addIngredient($recipeId, $ingredientId) {
+        return (new static::$dao )->addIngredient($recipeId, $ingredientId);
+    }
+
 }
