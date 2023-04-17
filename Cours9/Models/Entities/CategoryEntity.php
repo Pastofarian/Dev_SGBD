@@ -31,5 +31,4 @@ class CategoryEntity extends Entity {
         }
         return $this->recipes ?: []; // Retourne un tableau vide si il n'y a pas de recette
     }
-    
 }

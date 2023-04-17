@@ -13,6 +13,5 @@ if ($recipeId) {
     }
 }
 
-
 header('Location: ../Views/recipeView.php');
 exit;

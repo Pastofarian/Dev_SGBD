@@ -53,5 +53,4 @@ class RecipeEntity extends Entity {
     public static function addIngredient($recipeId, $ingredientId) {
         return (new static::$dao )->addIngredient($recipeId, $ingredientId);
     }
-
 }

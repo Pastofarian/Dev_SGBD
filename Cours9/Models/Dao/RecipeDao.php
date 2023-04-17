@@ -39,5 +39,4 @@ class RecipeDao extends Dao {
         $statement = $this->db->prepare("INSERT INTO ingredientRecipe (recipe_id, ingredient_id) VALUES (?, ?)");
         $statement->execute([$recipeId, $ingredientId]);
     }
-
 }

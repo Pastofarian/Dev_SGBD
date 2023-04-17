@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Un nom est obligatoire.";
     }
 } else {
-    // redirige vers createIngredientController si la REQUEST_METHOD n'est pas POST
+    // redirige vers createIngredientView si la REQUEST_METHOD n'est pas POST
     header('Location: ../Views/createIngredientView.php');
     exit;
 }

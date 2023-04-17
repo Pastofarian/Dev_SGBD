@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Un problème est survenu pendant la création de la recette.";
         }
     } else {
-        echo "Un nom et un ID de catégorie sont obligatoires.";
+        echo "Un nom et un une catégorie sont obligatoires.";
     }
 } else {
     header('Location: ../Views/createRecetteView.php');

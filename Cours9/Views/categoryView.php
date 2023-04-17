@@ -39,7 +39,7 @@ include('partials/header.php');
                 $allCategory = CategoryEntity::all();
 
                 foreach ($allCategory as $category) {
-                    if ($category->id == -1) { // on skip si c'est la catégorie pas défaut
+                    if ($category->id == -1) { // on affiche pas si c'est la catégorie pas défaut
                         continue;
                     }
                     $recipes = $category->recipes;

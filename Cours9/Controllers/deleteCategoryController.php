@@ -11,7 +11,7 @@ $categoryId = isset($_GET['id']) ? $_GET['id'] : null;
 // récupère toutes les recettes associées à la catégorie
 $recipes = RecipeEntity::where('category_id', $categoryId);
 
-// change la catégorie des recettes à l'id -1 (defaut)
+// change la catégorie des recettes à l'id -1 (défaut)
 foreach ($recipes as $recipe) {
     $recipe->category_id = -1;
     $recipe->save();

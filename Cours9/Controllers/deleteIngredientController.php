@@ -13,6 +13,5 @@ if ($ingredientId) {
     }
 }
 
-
 header('Location: ../Views/ingredientView.php');
 exit;
