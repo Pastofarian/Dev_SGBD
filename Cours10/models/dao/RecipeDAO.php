@@ -12,7 +12,7 @@ class RecipeDAO extends DAO {
     }
     
     public function store ($recipe) {
-        $statement = $this->db->prepare("INSERT INTO recipes (name, category_id) VALUES (?, ?, ?)");
+        $statement = $this->db->prepare("INSERT INTO recipes (name, category_id) VALUES (?, ?)");
         return parent::insert($statement, [$recipe->name, $recipe->category->id], $recipe);
     }
     

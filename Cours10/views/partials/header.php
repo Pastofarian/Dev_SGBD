@@ -11,10 +11,10 @@
                         <a class="nav-link" href="recipes.php">Recettes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../ingredients/list.php">Ingrédients</a>
+                        <a class="nav-link" href="ingredients.php">Ingrédients</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../categories/list.php">Catégories</a>
+                        <a class="nav-link" href="categories.php">Catégories</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -22,10 +22,10 @@
                         <a class="nav-link custom-link" href="recipes.php?create=1.php">Créer une recette</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link custom-link" href="../views/ingredient/create.php">Créer un ingrédient</a>
+                        <a class="nav-link custom-link" href="ingredients.php?create=1.php">Créer un ingrédient</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link custom-link" href="../views/categories/create.php">Créer une catégorie</a>
+                        <a class="nav-link custom-link" href="categories.php?create=1.php">Créer une catégorie</a>
                     </li>
                 </ul>
             </div>

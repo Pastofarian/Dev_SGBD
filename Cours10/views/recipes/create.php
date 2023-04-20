@@ -18,7 +18,7 @@ ini_set('display_startup_errors', 1);
 <body>
 <div class="container">
     <h1>Créer un nouvelle recette</h1>
-    <form action="recipes?store=1" method="post">
+    <form action="recipes.php?store=1" method="post">
         <div class="form-group">
             <label for="name">Nom:</label>
             <input type="text" class="form-control" name="name" id="name" required>
@@ -36,7 +36,7 @@ ini_set('display_startup_errors', 1);
         </div>
         <div class="form-group">
         <label for="ingredients">Ingrédients:</label>
-        <select class="form-control" id="ingredients" name="ingredients[]" multiple>
+        <select class="form-control" id="ingredients" name="ingredient_ids[]" multiple>
             <?php
             foreach ($ingredients as $ingredient) {
                 echo "<option value='{$ingredient->id}'>{$ingredient->name}</option>";

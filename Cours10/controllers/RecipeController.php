@@ -22,13 +22,12 @@ class RecipeController {
     }
     
     public function store ($data) {
-
         $category = Category::find($data["category_id"]);
-        $recipe = new Recipe(false, $data["name"], $data["description"], $category);
+        $recipe = new Recipe(false, $data["name"], $category);
         $recipe->save();
         foreach($data["ingredient_ids"] as $ingredient_id) {
             $recipe->add('ingredients', Ingredient::find($ingredient_id));
         }
-        
+        return include 'views/recipes/list.php';
     }
 }
