@@ -51,8 +51,14 @@ include('./views/partials/header.php');
                     echo "<td>" . $ingredient->id . "</td>";
                     echo "<td>" . $ingredient->name . "</td>";
                     echo "<td>" . $recipeList . "</td>";
-                    echo "<td><a href='updateIngredientView.php?id={$ingredient->id}' class='btn custom-button'>Update</a></td>";
-                    echo "<td><a href='../Controllers/deleteIngredientController.php?id={$ingredient->id}' class='btn btn-danger'>Delete</a></td>";
+                    echo "<td><a href='ingredients.php?updateView=" . $ingredient->id . "' class='btn custom-button'>Update</a></td>";                
+                    echo "</td>";
+                    echo "<td>
+                        <form action='ingredients.php?destroy=1' method='post'>
+                            <input type='hidden' name='id' value='" . $ingredient->id . "'>
+                            <input type='submit' value='Delete' class='btn btn-danger'>
+                        </form>
+                    </td>";
                     echo "</tr>";
                 }                
                 ?>

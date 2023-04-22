@@ -33,5 +33,39 @@ class IngredientController {
         $ingredients = Ingredient::all();
         return include 'views/ingredients/list.php';
     }
+
+    public function edit($id) {
+        $ingredient = Ingredient::find($id);
+        $recipes = Recipe::all();
+        return include 'views/ingredients/edit.php';
+    }
+    
+    public function update($data) {
+        $ingredient = Ingredient::find($data["id"]);
+        $ingredient->name = $data["name"];
+        $ingredient->save();
+    
+        $ingredient->remove('recipes');
+        if (!empty($data["recipes"])) {
+            foreach ($data["recipes"] as $recipe_id) {
+                $ingredient->add('recipes', Recipe::find($recipe_id));
+            }
+        }
+    }
+    
+    public function destroy($id) {
+        $ingredient = Ingredient::find($id);
+        $ingredient->remove('recipes');
+        $ingredient->delete();
+        $ingredients = Ingredient::all();
+        return include 'views/ingredients/list.php';
+    }
+    
+    public function updateView($id) {
+        $ingredient = Ingredient::find($id);
+        $recipes = Recipe::all();
+        include 'views/ingredients/update.php';
+    }
+    
     
 }

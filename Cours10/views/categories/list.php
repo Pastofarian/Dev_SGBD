@@ -51,8 +51,14 @@ include('./views/partials/header.php');
                     echo "<td>" . $category->id . "</td>";
                     echo "<td>" . $category->name . "</td>";
                     echo "<td>" . $recipeList . "</td>";
-                    echo "<td><a href='updateCategoryView.php?id={$category->id}' class='btn custom-button'>Update</a></td>";
-                    echo "<td><a href='../Controllers/deleteCategoryController.php?id={$category->id}' class='btn btn-danger'>Delete</a></td>";
+                    echo "<td><a href='categories.php?updateView=" . $category->id . "' class='btn custom-button'>Update</a></td>";                
+                    echo "</td>";
+                    echo "<td>
+                        <form action='categories.php?destroy=1' method='post'>
+                            <input type='hidden' name='id' value='" . $category->id . "'>
+                            <input type='submit' value='Delete' class='btn btn-danger'>
+                        </form>
+                    </td>";
                     echo "</tr>";
                 }
                 ?>
