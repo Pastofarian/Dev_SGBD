@@ -16,18 +16,19 @@ class CategoryController {
     }
     
     public function create () {
-        $recipes = Recipe::all();   
-        // $ingredients = Ingredient::all();
+        $recipes = Recipe::all();
+        $categories = Category::all();
         return include 'views/categories/create.php';
     }
     
-    public function store ($data) {
-        $recipe = Recipe::find($data["recipe_id"]);
-        $category = new Category(false, $data["name"], $recipe);
+    public function store($data) {
+        $category = new Category(false, $data["name"]);
         $category->save();
-        // foreach($data["ingredient_ids"] as $ingredient_id) {
-        //     $recipe->add('ingredients', Ingredient::find($ingredient_id));
-        // }
         
+        $categories = Category::all();
+        return include 'views/categories/list.php';
     }
+    
+    
+    
 }

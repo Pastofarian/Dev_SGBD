@@ -2,17 +2,17 @@
    error_reporting(E_ALL);
    ini_set('display_errors', 1);
    ini_set('display_startup_errors', 1);
-   require_once('../autoload.php');
+   //require_once('../autoload.php');
    
-   //Devrait être dans le Controller !
-   $recipeId = isset($_GET['id']) ? $_GET['id'] : null;
+  //  //Devrait être dans le Controller !
+  //  $recipeId = isset($_GET['id']) ? $_GET['id'] : null;
    
-   if ($recipeId) {
-     $recipe = RecipeEntity::find($recipeId);
-   } else {
-     header("Location: recipeView.php");
-     exit;
-   }
+  //  if ($recipeId) {
+  //    $recipe = RecipeEntity::find($recipeId);
+  //  } else {
+  //    header("Location: recipeView.php");
+  //    exit;
+  //  }
    
    ?>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Update recipe</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-      <link rel="stylesheet" href="../CSS/style.css">
+      <link rel="stylesheet" href="./CSS/style.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -30,7 +30,7 @@
    <body>
   <div class="container">
     <h1>Update recette</h1>
-    <form action="../Controllers/updateRecipeController.php" method="post">
+    <form action="recipes.php?update=1' method='post" method="post">
       <input type="hidden" name="id" value="<?php echo $recipe->id; ?>">
       <div class="form-group">
         <label for="name">Nom:</label>
@@ -40,8 +40,8 @@
         <label for="category">Catégorie:</label>
         <select class="form-control" id="category" name="category_id">
           <?php
-          $allCategories = CategoryEntity::all();
-          foreach ($allCategories as $category) {
+          //$allCategories = CategoryEntity::all();
+          foreach ($categories as $category) {
             $selected = ($recipe->category && $recipe->category->id == $category->id) ? 'selected' : '';
             echo "<option value='{$category->id}' {$selected}>{$category->name}</option>";
           }
@@ -53,9 +53,9 @@
         <label for="ingredients">Ingrédients:</label>
         <select class="form-control" id="ingredients" name="ingredients[]" multiple>
           <?php
-          $allIngredients = IngredientEntity::all();
+          //$allIngredients = IngredientEntity::all();
           $recipeIngredientIds = array_map(function($ingredient) { return $ingredient->id; }, $recipe->ingredients);
-          foreach ($allIngredients as $ingredient) {
+          foreach ($ingredients as $ingredient) {
             $selected = in_array($ingredient->id, $recipeIngredientIds) ? 'selected' : '';
             echo "<option value='{$ingredient->id}' {$selected}>{$ingredient->name}</option>";
           }

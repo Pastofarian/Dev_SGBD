@@ -28,6 +28,49 @@ class RecipeController {
         foreach($data["ingredient_ids"] as $ingredient_id) {
             $recipe->add('ingredients', Ingredient::find($ingredient_id));
         }
+        $recipes = Recipe::all();
         return include 'views/recipes/list.php';
     }
+
+
+    public function edit ($id) {
+        $recipe = Recipe::find($id);
+        $categories = Category::all();
+        $ingredients = Ingredient::all(); 
+        return include 'views/recipes/edit.php';
+    }
+    
+    public function update ($data) {
+        $recipe = Recipe::find($data["id"]);
+        $category = Category::find($data["category_id"]);
+        $recipe->name = $data["name"];
+        // $recipe->description = $data["description"];
+        $recipe->category = $category;
+        $recipe->save();
+        
+        $recipe->remove('ingredients');
+        foreach($data["ingredient_ids"] as $ingredient_id) {
+            $recipe->add('ingredients', Ingredient::find($ingredient_id));
+        }
+        // $recipes = Recipe::all();
+        // return include 'views/recipes/list.php';
+    }
+    
+    public function destroy ($id) {
+        $recipe = Recipe::find($id);
+        $recipe->remove('ingredients');
+        $recipe->delete();
+        $recipes = Recipe::all();
+        return include 'views/recipes/list.php';
+        
+    }
+
+    public function updateView($id) {
+        $recipe = Recipe::find($id);
+        $categories = Category::all();
+        $ingredients = Ingredient::all();
+        include 'views/recipes/update.php';
+
+    }
+
 }

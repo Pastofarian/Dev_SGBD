@@ -16,18 +16,22 @@ class IngredientController {
     }
     
     public function create () {
+        $categories = Category::all();
         $recipes = Recipe::all();   
         // $ingredients = Ingredient::all();
         return include 'views/ingredients/create.php';
     }
     
-    public function store ($data) {
-        // $category = Category::find($data["category_id"]);
-        $ingredient = new Ingredient(false, $data["name"], $recipe);
+    public function store($data) {
+        $ingredient = new Ingredient(false, $data["name"]);
         $ingredient->save();
-        // foreach($data["ingredient_ids"] as $ingredient_id) {
-        //     $recipe->add('ingredients', Ingredient::find($ingredient_id));
-        // }
-        
+        if (!empty($data["recipes"])) {
+            foreach ($data["recipes"] as $recipe_id) {
+                $ingredient->add('recipes', Recipe::find($recipe_id));
+            }
+        }
+        $ingredients = Ingredient::all();
+        return include 'views/ingredients/list.php';
     }
+    
 }

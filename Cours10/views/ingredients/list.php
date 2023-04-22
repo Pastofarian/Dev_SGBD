@@ -37,13 +37,16 @@ include('./views/partials/header.php');
             <tbody>
             <?php
                 // $allIngredients = Ingredient::all();
-
                 foreach ($ingredients as $ingredient) {
                     $recipes = $ingredient->recipes;
-                    $recipeNames = array_map(function($recipe) {
-                        return $recipe->name;
-                    }, $recipes);
-                    $recipeList = implode(", ", $recipeNames);
+                    if (is_array($recipes)) {
+                        $recipeNames = array_map(function($recipe) {
+                            return $recipe->name;
+                        }, $recipes);
+                        $recipeList = implode(", ", $recipeNames);
+                    } else {
+                        $recipeList = "";
+                    }
                     echo "<tr>";
                     echo "<td>" . $ingredient->id . "</td>";
                     echo "<td>" . $ingredient->name . "</td>";
@@ -51,7 +54,7 @@ include('./views/partials/header.php');
                     echo "<td><a href='updateIngredientView.php?id={$ingredient->id}' class='btn custom-button'>Update</a></td>";
                     echo "<td><a href='../Controllers/deleteIngredientController.php?id={$ingredient->id}' class='btn btn-danger'>Delete</a></td>";
                     echo "</tr>";
-                }
+                }                
                 ?>
             </tbody>
         </table>

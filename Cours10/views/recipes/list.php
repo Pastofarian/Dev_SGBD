@@ -41,19 +41,28 @@ include('./views/partials/header.php');
                 if (!empty($recipes)){   
                     foreach ($recipes as $recipe) {
                         $ingredients = $recipe->ingredients;
-                        $ingredientNames = array_map(function($ingredient) {
-                            return $ingredient->name;
-                        }, $ingredients);
-                        $ingredientList = implode(", ", $ingredientNames);
-
+                        if (is_array($ingredients)) {
+                            $ingredientNames = array_map(function($ingredient) {
+                                return $ingredient->name;
+                            }, $ingredients);
+                            $ingredientList = implode(", ", $ingredientNames);
+                        } else {
+                            $ingredientList = "";
+                        }                        
                         echo "<tr>";
                         echo "<td>" . $recipe->id . "</td>";
                         echo "<td>" . $recipe->category->name . "</td>";
                         $categoryName = $recipe->category ? $recipe->category->name : 'Pas de catégorie';
                         echo "<td>" . $recipe->name . "</td>";
                         echo "<td>" . $ingredientList . "</td>";
-                        echo "<td><a href='updateRecipeView.php?id={$recipe->id}' class='btn custom-button'>Update</a></td>";
-                        echo "<td><a href='../Controllers/deleteRecipeController.php?id={$recipe->id}' class='btn btn-danger'>Delete</a></td>";
+                        echo "<td><a href='recipes.php?updateView=" . $recipe->id . "' class='btn custom-button'>Update</a></td>";                
+                        echo "</td>";
+                        echo "<td>
+                            <form action='recipes.php?destroy=1' method='post'>
+                                <input type='hidden' name='id' value='" . $recipe->id . "'>
+                                <input type='submit' value='Delete' class='btn btn-danger'>
+                            </form>
+                        </td>";
                         echo "</tr>";
                     }
                 }
