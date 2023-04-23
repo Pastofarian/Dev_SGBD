@@ -37,7 +37,8 @@ class RecipeController {
         $recipe = Recipe::find($id);
         $categories = Category::all();
         $ingredients = Ingredient::all(); 
-        return include 'views/recipes/edit.php';
+        //var_dump($ingredients);
+        return include 'views/recipes/update.php';
     }
     
     public function update ($data) {
@@ -52,8 +53,8 @@ class RecipeController {
         foreach($data["ingredient_ids"] as $ingredient_id) {
             $recipe->add('ingredients', Ingredient::find($ingredient_id));
         }
-        // $recipes = Recipe::all();
-        // return include 'views/recipes/list.php';
+        $recipes = Recipe::all();
+        return include 'views/recipes/list.php';
     }
     
     public function destroy ($id) {
@@ -70,7 +71,6 @@ class RecipeController {
         $categories = Category::all();
         $ingredients = Ingredient::all();
         include 'views/recipes/update.php';
-
     }
 
 }

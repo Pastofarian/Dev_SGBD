@@ -30,7 +30,7 @@
    <body>
   <div class="container">
     <h1>Update recette</h1>
-    <form action="recipes.php?update=1' method='post" method="post">
+    <form action="recipes.php?update=1" method="post">
       <input type="hidden" name="id" value="<?php echo $recipe->id; ?>">
       <div class="form-group">
         <label for="name">Nom:</label>
@@ -51,10 +51,11 @@
 
       <div class="form-group">
         <label for="ingredients">Ingrédients:</label>
-        <select class="form-control" id="ingredients" name="ingredients[]" multiple>
+        <select class="form-control" id="ingredients" name="ingredient_ids[]" multiple>
           <?php
           //$allIngredients = IngredientEntity::all();
           $recipeIngredientIds = array_map(function($ingredient) { return $ingredient->id; }, $recipe->ingredients);
+          //var_dump($ingredients);
           foreach ($ingredients as $ingredient) {
             $selected = in_array($ingredient->id, $recipeIngredientIds) ? 'selected' : '';
             echo "<option value='{$ingredient->id}' {$selected}>{$ingredient->name}</option>";

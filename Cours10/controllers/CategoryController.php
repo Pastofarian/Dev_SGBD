@@ -32,7 +32,7 @@ class CategoryController {
     public function edit($id) {
         $category = Category::find($id);
         $recipes = Recipe::all();
-        return include 'views/categories/edit.php';
+        return include 'views/categories/update.php';
     }
     
     public function update($data) {
@@ -47,7 +47,11 @@ class CategoryController {
                 $recipe->save();
             }
         }
+    
+        $categories = Category::all();
+        include 'views/categories/list.php';
     }
+    
     
     public function destroy($id) {
         $category = Category::find($id);

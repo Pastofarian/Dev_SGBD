@@ -60,7 +60,7 @@ include('./views/partials/header.php');
                         </form>
                     </td>";
                     echo "</tr>";
-                }                
+                }           
                 ?>
             </tbody>
         </table>
