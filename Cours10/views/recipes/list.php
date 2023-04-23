@@ -52,7 +52,6 @@ include('./views/partials/header.php');
                         echo "<tr>";
                         echo "<td>" . $recipe->id . "</td>";
                         echo "<td>" . $recipe->category->name . "</td>";
-                        $categoryName = $recipe->category ? $recipe->category->name : 'Pas de catégorie';
                         echo "<td>" . $recipe->name . "</td>";
                         echo "<td>" . $ingredientList . "</td>";
                         echo "<td><a href='recipes.php?updateView=" . $recipe->id . "' class='btn custom-button'>Update</a></td>";                

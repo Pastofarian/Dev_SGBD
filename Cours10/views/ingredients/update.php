@@ -37,9 +37,11 @@
                <div class="form-group">
         <label for="recipes">Recettes:</label>
         <select class="form-control" id="recipes" name="recipes[]" multiple>
-            <?php
+        <?php
+            $ingredientRecipeIds = array_map(function($recipe) { return $recipe->id; }, $ingredient->recipes);
             foreach ($recipes as $recipe) {
-                echo "<option value='{$recipe->id}'>{$recipe->name}</option>";
+               $selected = in_array($recipe->id, $ingredientRecipeIds) ? 'selected' : '';
+               echo "<option value='{$recipe->id}' {$selected}>{$recipe->name}</option>";
             }
             ?>
         </select>

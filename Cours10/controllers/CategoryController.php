@@ -52,14 +52,15 @@ class CategoryController {
         include 'views/categories/list.php';
     }
     
-    
     public function destroy($id) {
         $category = Category::find($id);
         $recipes = $category->recipes();
     
-        // Set category_id to null for associated recipes before deleting the category
+        // On set l'id -1 (Catégorie inconnue) aux recettes associées
+        $unknownCategory = Category::find(-1);
         foreach ($recipes as $recipe) {
-            $recipe->category_id = null;
+            $recipe->category_id = -1;
+            $recipe->category = $unknownCategory;
             $recipe->save();
         }
     
@@ -67,6 +68,7 @@ class CategoryController {
         $categories = Category::all();
         return include 'views/categories/list.php';
     }
+    
     
     public function updateView($id) {
         $category = Category::find($id);
