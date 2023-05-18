@@ -1,0 +1,42 @@
+body {
+    background-image: url('../images/wp2744548.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding-top: 4rem;
+}
+
+tr {
+    background-color: white;
+}
+
+th {
+    color: #000000;
+}
+
+h1 {
+    color: black;
+}
+
+.custom-button {
+    background-color: rgb(169, 123, 97, 0.7);
+    color: #ffffff;
+}
+
+.custom-link {
+    background-color: #498a0c;
+    color: #ffffff;
+    padding: 10px 20px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.custom-item {
+    display: flex;
+    align-items: center;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.9);
+}

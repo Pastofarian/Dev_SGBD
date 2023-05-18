@@ -28,26 +28,26 @@
    </head>
    <body>
       <div class="container">
-         <h1>Update ingrédient</h1>
-         <form action="ingredients.php?update=1" method="post">
-            <input type="hidden" name="id" value="<?php echo $ingredient->id; ?>">
+      <h1>Update ingrédient</h1>
+      <form action="ingredients.php?update=1" method="post">
+         <input type="hidden" name="id" value="<?php echo $ingredient->id; ?>">
+         <div class="form-group">
+            <label for="name">Nom:</label>
+            <input type="text" class="form-control" id="name" name="name" value="<?php echo $ingredient->name; ?>">
             <div class="form-group">
-               <label for="name">Nom:</label>
-               <input type="text" class="form-control" id="name" name="name" value="<?php echo $ingredient->name; ?>">
-               <div class="form-group">
-        <label for="recipes">Recettes:</label>
-        <select class="form-control" id="recipes" name="recipes[]" multiple>
-        <?php
-            $ingredientRecipeIds = array_map(function($recipe) { return $recipe->id; }, $ingredient->recipes);
-            foreach ($recipes as $recipe) {
-               $selected = in_array($recipe->id, $ingredientRecipeIds) ? 'selected' : '';
-               echo "<option value='{$recipe->id}' {$selected}>{$recipe->name}</option>";
-            }
-            ?>
-        </select>
-    </div>
+               <label for="recipes">Recettes:</label>
+               <select class="form-control" id="recipes" name="recipes[]" multiple>
+               <?php
+                  $ingredientRecipeIds = array_map(function($recipe) { return $recipe->id; }, $ingredient->recipes);
+                  foreach ($recipes as $recipe) {
+                     $selected = in_array($recipe->id, $ingredientRecipeIds) ? 'selected' : '';
+                     echo "<option value='{$recipe->id}' {$selected}>{$recipe->name}</option>";
+                  }
+                  ?>
+               </select>
+            </div>
             <button type="submit" class="btn btn-primary">Update de l'ingrédient</button>
-         </form>
+      </form>
       </div>
    </body>
 </html>

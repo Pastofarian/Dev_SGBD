@@ -35,6 +35,18 @@
                <label for="name">Nom:</label>
                <input type="text" class="form-control" id="name" name="name" value="<?php echo $category->name; ?>">
             </div>
+            <div class="form-group">
+               <label for="recipes">Recettes:</label>
+               <select class="form-control" id="recipes" name="recipes[]" multiple>
+               <?php
+                  $categoryRecipeIds = array_map(function($recipe) { return $recipe->id; }, $category->recipes());
+                  foreach ($recipes as $recipe) {
+                      $selected = in_array($recipe->id, $categoryRecipeIds) ? 'selected' : '';
+                      echo "<option value='{$recipe->id}' {$selected}>{$recipe->name}</option>";
+                  }
+                  ?>
+               </select>
+            </div>
             <button type="submit" class="btn btn-primary">Update de la catégorie</button>
          </form>
       </div>

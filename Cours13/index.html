@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- 
+4) Dans le projet BeerBar => Au clic d’une bière/d’un bar, aller chercher sa page avec une
+requête ajax -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>1) Récupérer le contenu d’une page générée avec une requête AJAX et l’afficher au click d’un bouton</h1>
+
+    <button type="button">button</button>
+    <script>
+        $(document).ready(function () {
+            $("button").on('click', function () {
+                console.log("button click");
+                $.get('page.html')
+                    .done(function (result) {
+                        //console.log(result);
+                        $("body").html(result);
+                    });
+            })
+            $.get('page2.php')
+                .done(function (jsonResult) {
+                    //console.log(jsonResult);
+                    $("body").html(jsonResult);
+                });
+        }
+        );
+    </script>
+    <h1>2) Récupérer une liste de personnes en JSON et l’afficher dans une ordered list</h1>
+    <!-- <script>
+        // $.getJSON('person.php', function (data) {
+        //     var items = [];
+        //     items.push("<li>" + data.name + ", " + data.age + "</li>");
+        //     $("<ol/>", {
+        //         "class": "my-new-list",
+        //         html: items.join("")
+        //     }).appendTo("body");
+        // });
+        $.getJSON('person.php', function (data) {
+            var items = [];
+            $.each(data, function (key, person) {
+                items.push("<li>" + person.name + ", " + person.age + "</li>");
+            });
+            $("<ul/>", {
+                "class": "my-new-list",
+                html: items.join("")
+            }).appendTo("body");
+        });
+    </script> -->
+
+    <h1>3) Au click du nom d’une personne, aller chercher une vue contenant plus d’informations sur lui
+        et l’afficher</h1>
+    <script>
+        $.getJSON('person.php', function (data) {
+            var items = [];
+            $.each(data, function (key, person) {
+                items.push("<li class='person' data-name='" + person.name + "'>" + person.name + ", " + person.age + "</li>");
+            });
+            $("<ul/>", {
+                "class": "my-new-list",
+                html: items.join("")
+            }).appendTo("body");
+
+            // Add click event to each person
+            $(".person").click(function () {
+                var name = $(this).data("name");
+                $.getJSON('personDetails.php', { name: name }, function (data) {
+                    // Display the detailed information about the person
+                    // How you do this is up to you, but here's a simple example:
+                    alert("Name: " + data.name + "\nAge: " + data.age + "\nJob: " + data.job + "\nCity: " + data.city);
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

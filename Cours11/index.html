@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="my-box">
+        <p>Changer la couleur de fond du body au click d’un bouton</p>
+        <button id=color type="button">Click Me!</button>
+        <p>Au blur d’un input vérifier s' il contient au moins 8 caractères, si non lui ajouter une classe qui mettra sa
+            bordure en rouge
+        </p>
+        <input type="text" class="sampleText" value="8 caractères min" /> <br /><br />
+        <p>Avec un bouton Afficher et un Bouton Cacher => Afficher ou cacher un formulaire</p>
+        <button id="hide" type="button">hide</button>
+        <button id="show" type="button">show</button>
+        <form>
+            <label for="fname">First name:</label><br>
+            <input type="text" id="fname" name="fname"><br>
+            <label for="lname">Last name:</label><br>
+            <input type="text" id="lname" name="lname">
+        </form>
+        <p>Changez le contenu d’une balise H1 avec le contenu d’un input que l’utilisateur peut changer (modifier le
+            titre des que l’utilisateur quitte l’input)
+        </p>
+        <input type="password" id="password"><br /><br />
+        <p id="h1"></p>
+        <p>Changer la source d’une image au hover de celle-ci</p>
+        <img id="myImage" src="js-tutorials-813383877.png" alt="Image" />
+        <p>Au click d’un bouton, générez un formulaire avec 1 champ date qui est préfill avec la date du jour</p>
+        <button id="createForm" type="button">Create Form</button>
+        <div id="formContainer"></div>
+    </div>
+    <style>
+    </style>
+    <script>
+        clicked = true;
+        $(document).ready(function () {
+            $("#color").click(function () {
+                if (clicked) {
+                    $("body").css('background-color', 'black');
+                    clicked = false;
+                } else {
+                    $("body").css('background-color', 'blue');
+                    clicked = true;
+                }
+            });
+            /*********************************************/
+            $("input").blur(function () {
+                if ($(".sampleText").val().length < 8) {
+                    $(this).css('border-color', 'red');
+                }
+            });
+            /***********************************************/
+            $("#hide").on('click', function () {
+                $("form").hide();
+            })
+            $("#show").on('click', function () {
+                $("form").show();
+            });
+            /***************************************************/
+            $("#password").blur(function () {
+                $("#h1").text("erreur, ce password est déjà utilisé par gary33")
+            });
+            /***************************************************/
+            $("#myImage").hover(
+                function () {
+                    $(this).attr("src", "js-tutorials-813383877.png");
+                },
+                function () {
+                    $(this).attr("src", "th-2324427114.jpeg");
+                }
+            );
+            /***************************************************/
+            function formatDate(date) {
+                const yyyy = date.getFullYear().toString();
+                const mm = (date.getMonth() + 1).toString().padStart(2, '0');
+                const dd = date.getDate().toString().padStart(2, '0');
+                return `${yyyy}-${mm}-${dd}`;
+            }
+
+            $("#createForm").click(function () {
+                const today = new Date();
+                const formattedDate = formatDate(today);
+
+                const form = `
+                    <form id="dateForm">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date" value="${formattedDate}" />
+                    </form>
+                `;
+
+                $("#formContainer").html(form);
+            });
+        });
+    </script>
+</body>
+
+</html>
