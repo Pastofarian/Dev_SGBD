@@ -14,28 +14,23 @@ requête ajax -->
 </head>
 
 <body>
-    <h1>1) Récupérer le contenu d’une page générée avec une requête AJAX et l’afficher au click d’un bouton</h1>
+    <h4>1) Récupérer le contenu d’une page générée avec une requête AJAX et l’afficher au click d’un bouton</h4>
 
     <button type="button">button</button>
     <script>
         $(document).ready(function () {
             $("button").on('click', function () {
-                console.log("button click");
+                //console.log("button click");
                 $.get('page.html')
                     .done(function (result) {
                         //console.log(result);
                         $("body").html(result);
                     });
             })
-            $.get('page2.php')
-                .done(function (jsonResult) {
-                    //console.log(jsonResult);
-                    $("body").html(jsonResult);
-                });
         }
         );
     </script>
-    <h1>2) Récupérer une liste de personnes en JSON et l’afficher dans une ordered list</h1>
+    <h4>2) Récupérer une liste de personnes en JSON et l’afficher dans une ordered list</h4>
     <!-- <script>
         // $.getJSON('person.php', function (data) {
         //     var items = [];
@@ -57,8 +52,8 @@ requête ajax -->
         });
     </script> -->
 
-    <h1>3) Au click du nom d’une personne, aller chercher une vue contenant plus d’informations sur lui
-        et l’afficher</h1>
+    <h4>3) Au click du nom d’une personne, aller chercher une vue contenant plus d’informations sur lui et l’afficher
+    </h4>
     <script>
         $.getJSON('person.php', function (data) {
             var items = [];
@@ -70,12 +65,11 @@ requête ajax -->
                 html: items.join("")
             }).appendTo("body");
 
-            // Add click event to each person
+            // Ajoute le click event sur chaque personne
             $(".person").click(function () {
                 var name = $(this).data("name");
                 $.getJSON('personDetails.php', { name: name }, function (data) {
-                    // Display the detailed information about the person
-                    // How you do this is up to you, but here's a simple example:
+                    // Affiche les détails de chaque personne
                     alert("Name: " + data.name + "\nAge: " + data.age + "\nJob: " + data.job + "\nCity: " + data.city);
                 });
             });
