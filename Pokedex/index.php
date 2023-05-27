@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-require('models/dao/PokemonDAO.php');
+require('autoload.php');
 
 $dao = new PokemonDAO();
 $favPokemons = $dao->fetch_all();

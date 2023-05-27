@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Entity.php';
-
 class Pokemon extends Entity {
 
     public $id;

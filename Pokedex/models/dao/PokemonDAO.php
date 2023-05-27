@@ -1,8 +1,5 @@
 <?php
 
-require_once 'DAO.php'; //comprend plus la logique ou il faut appeler l'entité
-include 'models/entities/Pokemon.php';
-
 class PokemonDAO extends DAO {
 
     public function __construct () {
