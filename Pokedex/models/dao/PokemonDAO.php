@@ -7,13 +7,13 @@ class PokemonDAO extends DAO {
     }
 
 public function store ($pokemon) {
-        $statement = $this->db->prepare("INSERT INTO pokemons (name, sprite) VALUES (?, ?)");
-        return parent::insert($statement, [$pokemon->name, $pokemon->sprite], $pokemon);
+        $statement = $this->db->prepare("INSERT INTO pokemons (name, sprite, moves, type) VALUES (?, ?, ?, ?)");
+        return parent::insert($statement, [$pokemon->name, $pokemon->sprite, json_encode($pokemon->moves), json_encode($pokemon->type)], $pokemon);
     }
     
     public function update($pokemon) {
-        $statement = $this->db->prepare("UPDATE pokemon SET name = ?, sprite = ? WHERE id = ?");
-        return parent::insert($statement, [$pokemon->name, $pokemon->sprite, $pokemon->id], $pokemon);
+        $statement = $this->db->prepare("UPDATE pokemon SET name = ?, sprite = ?, moves = ?, type = ? WHERE id = ?");
+        return parent::insert($statement, [$pokemon->name, $pokemon->sprite, json_encode($pokemon->moves), json_encode($pokemon->type), $pokemon->id], $pokemon);
     }
     
     public function create ($data) {
@@ -24,6 +24,8 @@ public function store ($pokemon) {
             $data["id"] ?? false,
             $data["name"] ?? false,
             $data["sprite"] ?? false,
+            json_decode($data["moves"] ?? "[]"),
+            json_decode($data["type"] ?? "[]"),
             false
         );
     }

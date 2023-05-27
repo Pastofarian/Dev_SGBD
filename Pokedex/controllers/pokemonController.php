@@ -18,6 +18,14 @@ if($action == 'add') {
     $pokemon_url = 'https://pokeapi.co/api/v2/pokemon/'.$id;
     $pokemon_data = json_decode(file_get_contents($pokemon_url), true);
 
+    $moves = array_map(function($move) {
+        return $move['move']['name'];
+    }, $pokemon_data['moves']);
+    
+    $types = array_map(function($type) {
+        return $type['type']['name'];
+    }, $pokemon_data['types']);
+
     // Check si le Pokemon est déjà dans la DB
     if ($dao->exists($id)) {
         http_response_code(400);
@@ -25,7 +33,7 @@ if($action == 'add') {
         return;
     }
 
-    $pokemon = new Pokemon($pokemon_data['id'], $pokemon_data['name'], $pokemon_data['sprites']['front_default']);
+    $pokemon = new Pokemon($pokemon_data['id'], $pokemon_data['name'], $pokemon_data['sprites']['front_default'], $moves, $types);
     $dao->store($pokemon);
     echo $pokemon->name;
 } elseif($action == 'remove') {

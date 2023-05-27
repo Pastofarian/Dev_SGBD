@@ -55,16 +55,32 @@ $favPokemons = $dao->fetch_all();
 </div>
 <h1>Pokemons favoris</h1>
 <table border='1'>
-<tr><th>ID</th><th>Nom</th><th>Sprite</th><th>Action</th></tr>
+<tr><th>ID</th><th>Nom</th><th>Sprite</th><th>Types</th><th>Compétences</th><th>Action</th></tr>
 
 <?php foreach($favPokemons as $pokemon): ?>
 <tr>
     <td><?php echo $pokemon->id; ?></td>
     <td><?php echo $pokemon->name; ?></td>
     <td><img src='<?php echo $pokemon->sprite; ?>' alt='<?php echo $pokemon->name; ?>' /></td>
+    <td>
+        <?php 
+        foreach($pokemon->type as $type) {
+            echo $type . " ";
+        }
+        ?>
+    </td>
+    <td>
+        <?php 
+        foreach($pokemon->moves as $move) {
+            echo $move . " ";
+        }
+        ?>
+    </td>
     <td><button class='remove-pokemon' data-id='<?php echo $pokemon->id; ?>'>Retirer des favoris</button></td>
 </tr>
 <?php endforeach; ?>
+
+
 
 
 </table>
@@ -75,7 +91,7 @@ $response = file_get_contents($api_url);
 $data = json_decode($response, true);
 
 echo "<table border='1'>";
-echo "<tr><th>ID</th><th>Name</th><th>Sprite</th><th>Action</th></tr>";
+echo "<tr><th>ID</th><th>Name</th><th>Sprite</th><th>Types</th><th>Compétences</th><th>Action</th></tr>";
 
 foreach ($data['results'] as $key => $pokemon) {
     $pokemon_url = $pokemon['url'];
@@ -84,10 +100,20 @@ foreach ($data['results'] as $key => $pokemon) {
     $pokemon_id = $pokemon_data['id'];
     $pokemon_sprite = $pokemon_data['sprites']['front_default'];
 
+    $pokemon_types = array_map(function($type) {
+        return $type['type']['name'];
+    }, $pokemon_data['types']);
+
+    $pokemon_moves = array_map(function($move) {
+        return $move['move']['name'];
+    }, $pokemon_data['moves']);
+
     echo "<tr>";
     echo "<td>{$pokemon_id}</td>";
     echo "<td>{$pokemon_name}</td>";
     echo "<td><img src='{$pokemon_sprite}' alt='{$pokemon_name}' /></td>";
+    echo "<td>" . implode(', ', $pokemon_types) . "</td>";
+    echo "<td>" . implode(', ', $pokemon_moves) . "</td>";
     echo "<td><button class='add-pokemon' data-id='{$pokemon_id}'>Ajouté à vos favoris</button></td>";
     echo "</tr>";
 }
