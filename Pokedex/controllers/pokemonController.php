@@ -9,7 +9,7 @@ $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
 if (($action !== 'add' && $action !== 'remove') || !is_numeric($id)) {
-    die("Action invalide ou Pokemon ID");
+    die("Action invalide ou ID incorrect");
 }
 
 $dao = new PokemonDAO();
@@ -26,11 +26,11 @@ if($action == 'add') {
         return $type['type']['name'];
     }, $pokemon_data['types']);
 
-    // Check si le Pokemon est déjà dans la DB
+    // Check if the Pokemon is already in the DB
     $pokemon_name = $pokemon_data['name'];
     if ($dao->exists($pokemon_name)) {
         http_response_code(400);
-        echo "Ce Pokemon est déjà dans les favoris";
+        echo "Ce Pokemon est déjà dans vos favoris";
         return;
     }
     
@@ -42,12 +42,12 @@ if($action == 'add') {
     $pokemon = $dao->fetch($id);
     if ($pokemon === null) {
         http_response_code(400);
-        echo "Ce Pokemon n'est pas dans les favoris";
+        echo "Ce Pokemon n'est pas dans vos favoris";
         return;
     }
     $pokemonName = $pokemon->name;
     $dao->destroy($id);
     echo $pokemonName;
-
-    
 }
+
+?>

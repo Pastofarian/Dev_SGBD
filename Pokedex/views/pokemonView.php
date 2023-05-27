@@ -13,7 +13,9 @@ $favPokemons = $dao->fetch_all();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pokemon Favorites</title>
+    <title>Pokemons</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -70,13 +72,21 @@ $favPokemons = $dao->fetch_all();
         ?>
     </td>
     <td>
-        <?php 
-        foreach($pokemon->moves as $move) {
-            echo $move . " ";
-        }
-        ?>
+        <button class="btn btn-primary action-button" type="button" data-toggle="collapse" data-target="#moves<?php echo $pokemon->id; ?>" aria-expanded="false" aria-controls="moves<?php echo $pokemon->id; ?>">
+          Show/Hide Moves
+        </button>
+        
+        <div class="collapse" id="moves<?php echo $pokemon->id; ?>">
+          <div class="card card-body">
+            <?php 
+            foreach($pokemon->moves as $move) {
+                echo $move . " ";
+            }
+            ?>
+          </div>
+        </div>
     </td>
-    <td><button class='remove-pokemon' data-id='<?php echo $pokemon->id; ?>'>Retirer des favoris</button></td>
+    <td><button class='remove-pokemon action-button' data-id='<?php echo $pokemon->id; ?>'>Retirer des favoris</button></td>
 </tr>
 <?php endforeach; ?>
 
@@ -84,39 +94,62 @@ $favPokemons = $dao->fetch_all();
 
 
 </table>
-<h1>Pokemons disponible(API)</h1>
+<h1>Pokemons disponible(api)</h1>
 <?php
 $api_url = 'https://pokeapi.co/api/v2/pokemon';
 $response = file_get_contents($api_url);
 $data = json_decode($response, true);
 
-echo "<table border='1'>";
-echo "<tr><th>ID</th><th>Name</th><th>Sprite</th><th>Types</th><th>Compétences</th><th>Action</th></tr>";
-
+$apiPokemons = [];
 foreach ($data['results'] as $key => $pokemon) {
     $pokemon_url = $pokemon['url'];
     $pokemon_data = json_decode(file_get_contents($pokemon_url), true);
-    $pokemon_name = $pokemon_data['name'];
-    $pokemon_id = $pokemon_data['id'];
-    $pokemon_sprite = $pokemon_data['sprites']['front_default'];
-
-    $pokemon_types = array_map(function($type) {
-        return $type['type']['name'];
-    }, $pokemon_data['types']);
 
     $pokemon_moves = array_map(function($move) {
         return $move['move']['name'];
     }, $pokemon_data['moves']);
 
-    echo "<tr>";
-    echo "<td>{$pokemon_id}</td>";
-    echo "<td>{$pokemon_name}</td>";
-    echo "<td><img src='{$pokemon_sprite}' alt='{$pokemon_name}' /></td>";
-    echo "<td>" . implode(', ', $pokemon_types) . "</td>";
-    echo "<td>" . implode(', ', $pokemon_moves) . "</td>";
-    echo "<td><button class='add-pokemon' data-id='{$pokemon_id}'>Ajouté à vos favoris</button></td>";
-    echo "</tr>";
+    $pokemon_types = array_map(function($type) {
+        return $type['type']['name'];
+    }, $pokemon_data['types']);
+
+    $apiPokemon = new Pokemon(
+        $pokemon_data['id'],
+        $pokemon_data['name'],
+        $pokemon_data['sprites']['front_default'],
+        $pokemon_moves,
+        $pokemon_types
+    );
+
+    $apiPokemons[] = $apiPokemon;
 }
+
+echo "<table border='1'>";
+echo "<tr><th>ID</th><th>Name</th><th>Sprite</th><th>Types</th><th>Compétences</th><th>Action</th></tr>";
+
+foreach($apiPokemons as $pokemon):
+    echo "<tr>";
+    echo "<td>{$pokemon->id}</td>";
+    echo "<td>{$pokemon->name}</td>";
+    echo "<td><img src='{$pokemon->sprite}' alt='{$pokemon->name}' /></td>";
+    echo "<td>";
+    foreach($pokemon->type as $type) {
+        echo $type . " ";
+    }
+    echo "</td>";
+    echo "<td>";
+    echo "<button class='btn btn-primary action-button' type='button' data-toggle='collapse' data-target='#apiMoves{$pokemon->id}' aria-expanded='false' aria-controls='apiMoves{$pokemon->id}'>
+          Show/Hide Moves
+        </button>";
+    echo "<div class='collapse' id='apiMoves{$pokemon->id}'>
+          <div class='card card-body'>";
+    foreach($pokemon->moves as $move) {
+        echo $move . " ";
+    }
+    echo "</div></div></td>";
+    echo "<td><button class='add-pokemon action-button' data-id='{$pokemon->id}'>Add to favorites</button></td>";
+    echo "</tr>";
+endforeach;
 
 echo "</table>";
 ?>
