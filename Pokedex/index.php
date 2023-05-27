@@ -7,6 +7,9 @@
 <body>
 
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 $api_url = 'https://pokeapi.co/api/v2/pokemon';
 $response = file_get_contents($api_url);
 $data = json_decode($response, true);
