@@ -27,25 +27,27 @@ if($action == 'add') {
     }, $pokemon_data['types']);
 
     // Check si le Pokemon est déjà dans la DB
-    if ($dao->exists($id)) {
+    $pokemon_name = $pokemon_data['name'];
+    if ($dao->exists($pokemon_name)) {
         http_response_code(400);
         echo "Ce Pokemon est déjà dans les favoris";
         return;
     }
+    
 
     $pokemon = new Pokemon($pokemon_data['id'], $pokemon_data['name'], $pokemon_data['sprites']['front_default'], $moves, $types);
     $dao->store($pokemon);
     echo $pokemon->name;
 } elseif($action == 'remove') {
-    if (!$dao->exists($id)) {
+    $pokemon = $dao->fetch($id);
+    if ($pokemon === null) {
         http_response_code(400);
         echo "Ce Pokemon n'est pas dans les favoris";
         return;
     }
-    $pokemon = $dao->fetch($id);
     $pokemonName = $pokemon->name;
     $dao->destroy($id);
     echo $pokemonName;
-}
 
-?>
+    
+}
