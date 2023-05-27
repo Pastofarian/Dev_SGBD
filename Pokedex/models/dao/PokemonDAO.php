@@ -27,5 +27,18 @@ public function store ($pokemon) {
             false
         );
     }
+    //méthode pour vérifier si un Pokemon est déjà dans la DB
+    public function exists ($id) {
+        $statement = $this->db->prepare("SELECT COUNT(*) FROM {$this->table} WHERE id = ?");
+        try {
+            $statement->execute([$id]);
+            $count = $statement->fetchColumn();
+            return $count > 0;
+        } catch (PDOException $exception) {
+            var_dump($exception);
+            return false;
+        }
+    }
+    
     
 }

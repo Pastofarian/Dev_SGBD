@@ -1,8 +1,9 @@
 <?php
+require('autoload.php');
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-require('autoload.php');
 
 $dao = new PokemonDAO();
 $favPokemons = $dao->fetch_all();
@@ -24,14 +25,14 @@ $favPokemons = $dao->fetch_all();
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Pokemon Added</h4>
+        <h4 class="modal-title">Pokemon ajouté</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        Pokemon <span id="pokemonName"></span> has been added to favorites.
+        Pokemon <span id="pokemonName"></span> a été ajouté à vos favoris.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
@@ -40,38 +41,35 @@ $favPokemons = $dao->fetch_all();
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Pokemon Removed</h4>
+        <h4 class="modal-title">Pokemon retiré de la base de données</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-    Pokemon <span id="removePokemonName"></span> has been removed from favorites.
+    Pokemon <span id="removePokemonName"></span> a été retiré de vos favoris.
 </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
 </div>
-<h1>Favorite Pokemon</h1>
+<h1>Pokemons favoris</h1>
 <table border='1'>
-<tr><th>ID</th><th>Name</th><th>Sprite</th></tr>
+<tr><th>ID</th><th>Nom</th><th>Sprite</th><th>Action</th></tr>
 
 <?php foreach($favPokemons as $pokemon): ?>
 <tr>
     <td><?php echo $pokemon->id; ?></td>
     <td><?php echo $pokemon->name; ?></td>
     <td><img src='<?php echo $pokemon->sprite; ?>' alt='<?php echo $pokemon->name; ?>' /></td>
-    <td><button class='remove-pokemon' data-id='<?php echo $pokemon->id; ?>'>Remove from Favorites</button></td>
+    <td><button class='remove-pokemon' data-id='<?php echo $pokemon->id; ?>'>Retirer des favoris</button></td>
 </tr>
 <?php endforeach; ?>
 
 
 </table>
-<h1>API Pokemon</h1>
+<h1>Pokemons disponible(API)</h1>
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 $api_url = 'https://pokeapi.co/api/v2/pokemon';
 $response = file_get_contents($api_url);
 $data = json_decode($response, true);
@@ -90,7 +88,7 @@ foreach ($data['results'] as $key => $pokemon) {
     echo "<td>{$pokemon_id}</td>";
     echo "<td>{$pokemon_name}</td>";
     echo "<td><img src='{$pokemon_sprite}' alt='{$pokemon_name}' /></td>";
-    echo "<td><button class='add-pokemon' data-id='{$pokemon_id}'>Add to Favorites</button></td>";
+    echo "<td><button class='add-pokemon' data-id='{$pokemon_id}'>Ajouté à vos favoris</button></td>";
     echo "</tr>";
 }
 
@@ -100,20 +98,22 @@ echo "</table>";
 <script>
 $(document).ready(function(){
     $(".add-pokemon").click(function(){
-        var pokemonId = $(this).data('id'); 
-        $.ajax({
-            url: 'controllers/pokemonController.php', 
-            type: 'post',
-            data: {action: 'add', id: pokemonId},
-            success: function(response) {
-                $('#pokemonName').text(response); 
-                $('#myModal').modal('show'); 
-                location.reload();
-            },
-            error: function(err) { console.log(err); }
-        });
+    var pokemonId = $(this).data('id'); 
+    $.ajax({
+        url: 'controllers/pokemonController.php', 
+        type: 'post',
+        data: {action: 'add', id: pokemonId},
+        success: function(response) {
+            $('#pokemonName').text(response); 
+            $('#myModal').modal('show'); 
+            location.reload();
+        },
+        error: function(jqXHR, textStatus, errorThrown) { 
+            alert('Error: ' + jqXHR.responseText);
+        }
     });
-    $(".remove-pokemon").click(function(){
+});
+$(".remove-pokemon").click(function(){
     var pokemonId = $(this).data('id'); 
     $.ajax({
         url: 'controllers/pokemonController.php', 
@@ -124,10 +124,11 @@ $(document).ready(function(){
             $('#removeModal').modal('show'); 
             location.reload();
         },
-        error: function(err) { console.log(err); }
+        error: function(jqXHR, textStatus, errorThrown) { 
+            alert('Error: ' + jqXHR.responseText);
+        }
     });
 });
-
 
 });
 </script>
