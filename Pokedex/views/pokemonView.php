@@ -1,9 +1,9 @@
 <?php
    require('../autoload.php');
    
-   error_reporting(E_ALL);
-   ini_set('display_errors', 1);
-   ini_set('display_startup_errors', 1);
+   // error_reporting(E_ALL);
+   // ini_set('display_errors', 1);
+   // ini_set('display_startup_errors', 1);
    
    // nouvelle instance de PokemonDAO
    $dao = new PokemonDAO();
@@ -11,15 +11,18 @@
    // Récupére tous les Pokémons favoris
    $favPokemons = $dao->fetch_all();
    ?>
+
 <!DOCTYPE html>
 <html>
    <head>
       <title>Pokemons</title>
+      <!-- CSS -->
       <link rel="stylesheet" href="../CSS/style.css">
+      <!-- Google fonts -->
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <!-- bibliothèques jQuery et Bootstrap -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -63,7 +66,8 @@
          </div>
       </div>
       <!-- Fin de modale suppression -->
-      <h1>Pokemons favoris</h1>
+      <a href="pokemonList.php" class="button-link">Liste complète des Pokémons</a>
+      <h1>Pokemons Favoris</h1>
       <table border='1'>
          <tr>
             <th>ID</th>
@@ -86,9 +90,9 @@
                   ?>
             </td>
             <td>
-               <!-- Bouton pour afficher/cacher les compétences du pokemon -->
+               <!-- Bouton pour afficher/masquer les compétences du pokemon -->
                <button class="btn btn-primary action-button" type="button" data-toggle="collapse" data-target="#moves<?php echo $pokemon->id; ?>" aria-expanded="false" aria-controls="moves<?php echo $pokemon->id; ?>">
-               Show/Hide Moves
+               Afficher/Masquer Compétences
                </button>
                <!-- Début des compétences -->
                <div class="collapse" id="moves<?php echo $pokemon->id; ?>">
@@ -107,7 +111,7 @@
          <?php endforeach; ?>
       </table>
       <!-- Fin du tableau des pokemons favoris -->
-      <!-- Début du bandeau des pokemons -->
+      <!-- Début du bandeau de pokemons -->
       <div class="pokemon-banner">
          <div class="pokemon-card">
             <img id="pokemonImage1" src="" alt="pokemon">
@@ -127,7 +131,7 @@
       </div>
       <!-- Fin du bandeau des pokemons -->
       <!-- Pokemons disponibles depuis l'API -->
-      <h1>Pokemons disponible(api)</h1>
+      <h1>Pokemons Disponible(api)</h1>
       <?php
          $api_url = 'https://pokeapi.co/api/v2/pokemon';
          $response = file_get_contents($api_url);
@@ -159,7 +163,7 @@
              // Ajout du Pokemon à la liste des Pokemons
              $apiPokemons[] = $apiPokemon;
          }
-         
+         //En html ça foirait alors j'ai tout fait en php
          echo "<table border='1'>";
          echo "<tr><th>ID</th><th>Name</th><th>Sprite</th><th>Types</th><th>Compétences</th><th>Action</th></tr>";
          
@@ -175,7 +179,7 @@
              echo "</td>";
              echo "<td>";
              echo "<button class='btn btn-primary action-button' type='button' data-toggle='collapse' data-target='#apiMoves{$pokemon->id}' aria-expanded='false' aria-controls='apiMoves{$pokemon->id}'>
-                   Show/Hide Moves
+                   Afficher/Masquer Compétences
                  </button>";
              echo "<div class='collapse' id='apiMoves{$pokemon->id}'>
                    <div class='card card-body'>";
@@ -195,7 +199,7 @@
              $(".add-pokemon").click(function(){
              var pokemonId = $(this).data('id'); 
          
-             // L'appel AJAX add le Pokemon aux favoris et crée un modale de confirmation + pareil pour delete
+             // L'appel AJAX add le Pokemon aux favoris et crée un modale de confirmation + pareil pour le delete
              $.ajax({
                  url: '../controllers/pokemonController.php', 
                  type: 'post',
@@ -211,7 +215,7 @@
              });
          });
          
-         //delete
+         //Delete
          $(".remove-pokemon").click(function(){
              var pokemonId = $(this).data('id'); 
              $.ajax({
@@ -230,9 +234,10 @@
          });
          });
          
+         //Bannière
          // On récupère un random Pokemon depuis l'API et l'affiche
          function fetchRandomPokemon(cardId) {
-             var randomId = Math.floor(Math.random() * 898) + 1;
+             var randomId = Math.floor(Math.random() * 1000) + 1;
              
          // L'appel AJAX récupère les données du Pokemon et met à jour l'image et le nom
              $.ajax({

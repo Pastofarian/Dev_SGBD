@@ -1,0 +1,93 @@
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('../Images/wallpaper.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+}
+
+body {
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: bold !important;
+    font-size: 30px !important;
+    color: #fffefe !important;
+    padding-top: 4rem !important;
+    background-color: rgba(240, 240, 240, 0.5) !important;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #000000;
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+table {
+    width: 40%;
+    margin: 1rem 0;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #333;
+    color: #FFF;
+    padding: 0.5rem;
+
+}
+
+td {
+    padding: 0.5rem;
+
+}
+
+.card {
+    margin: 1rem 0;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .1);
+    background-color: #000 !important;
+}
+
+.card-body {
+    position: relative;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.card-text {
+    font-size: 1.2rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.button-link:hover {
+    background-color: #0056b3;
+}

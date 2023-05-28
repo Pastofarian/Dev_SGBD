@@ -1,9 +1,9 @@
 <?php
 require '../autoload.php';
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
 
 // sanitize action et id
 $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -29,7 +29,7 @@ if ($action == 'add') {
         return $type['type']['name'];
     }, $pokemon_data['types']);
 
-    // Vérifie si le Pokemon est déjà dans la db avec le nom car id change à chaque fois
+    // Vérifie si le Pokemon est déjà dans la db avec le nom car l'id est auto incremented. J'aurais pu garder l'id de l'API qui est unique j'imagine.
     $pokemon_name = $pokemon_data['name'];
     if ($dao->exists($pokemon_name)) {
         http_response_code(400);
