@@ -1,15 +1,17 @@
 <?php
-   require('../autoload.php');
+   //require('../autoload.php');
    
    // error_reporting(E_ALL);
    // ini_set('display_errors', 1);
    // ini_set('display_startup_errors', 1);
    
    // nouvelle instance de PokemonDAO
-   $dao = new PokemonDAO();
+   // $dao = new PokemonDAO();
    
    // Récupére tous les Pokémons favoris
-   $favPokemons = $dao->fetch_all();
+   // $favPokemons = $dao->fetch_all();
+
+   // $favPokemons = Pokemon::all();
    ?>
 
 <!DOCTYPE html>
