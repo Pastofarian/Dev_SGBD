@@ -1,19 +1,3 @@
-<?php
-   //require('../autoload.php');
-   
-   // error_reporting(E_ALL);
-   // ini_set('display_errors', 1);
-   // ini_set('display_startup_errors', 1);
-   
-   // nouvelle instance de PokemonDAO
-   // $dao = new PokemonDAO();
-   
-   // Récupére tous les Pokémons favoris
-   // $favPokemons = $dao->fetch_all();
-
-   // $favPokemons = Pokemon::all();
-   ?>
-
 <!DOCTYPE html>
 <html>
    <head>
@@ -68,7 +52,7 @@
          </div>
       </div>
       <!-- Fin de modale suppression -->
-      <a href="pokemonList.php" class="button-link">Liste complète des Pokémons</a>
+      <a href="pokemonsList.php" class="button-link">Liste complète des Pokémons</a>
       <h1>Pokemons Favoris</h1>
       <table border='1'>
          <tr>
@@ -203,7 +187,7 @@
          
              // L'appel AJAX add le Pokemon aux favoris et crée un modale de confirmation + pareil pour le delete
              $.ajax({
-                 url: '../controllers/pokemonController.php', 
+                 url: '../controllers/PokemonController.php', 
                  type: 'post',
                  data: {action: 'add', id: pokemonId},
                  success: function(response) {
@@ -221,7 +205,7 @@
          $(".remove-pokemon").click(function(){
              var pokemonId = $(this).data('id'); 
              $.ajax({
-                 url: '../controllers/pokemonController.php', 
+                 url: '../controllers/PokemonController.php', 
                  type: 'post',
                  data: {action: 'remove', id: pokemonId},
                  success: function(response) { 

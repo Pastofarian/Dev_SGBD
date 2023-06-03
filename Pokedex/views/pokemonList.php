@@ -3,10 +3,10 @@
 //    ini_set('display_errors', 1);
 //    ini_set('display_startup_errors', 1);
    
-   require('../autoload.php');
+   // require('../autoload.php');
    
-   $dao = new PokemonDAO();
-   $favPokemons = $dao->fetch_all();
+   // $dao = new PokemonDAO();
+   // $favPokemons = $dao->fetch_all();
    
    // classe les favoris par nom
    usort($favPokemons, function($a, $b) {
@@ -31,7 +31,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!-- CSS -->
-      <link rel="stylesheet" href="../CSS/list.css">
+      <link rel="stylesheet" href="./CSS/list.css">
       <!-- Google fonts -->
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
       <!-- bibliothèques jQuery et Bootstrap -->
@@ -43,7 +43,7 @@
       <title>Pokémon List</title>
    </head>
    <body>
-      <a href="pokemonView.php" class="button-link">Retour</a>
+      <a href="pokemons.php" class="button-link">Retour</a>
       <h1>Pokémon List</h1>
       <table id="pokemonList">
          <tr>
