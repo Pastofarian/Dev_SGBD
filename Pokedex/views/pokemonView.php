@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
    <head>
@@ -9,7 +8,7 @@
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
       <!-- bibliothèques jQuery et Bootstrap -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -86,7 +85,6 @@
                <div class="collapse" id="moves<?php echo $pokemon->id; ?>">
                   <div class="card card-body">
                      <?php 
-                        
                         //$pokemon->moves = json_decode($pokemon->moves);
                         foreach($pokemon->moves as $move) {
                            //json_decode($pokemon->moves);
@@ -124,95 +122,104 @@
       <!-- Pokemons disponibles depuis l'API -->
       <h1>Pokemons Disponible(api)</h1>
       <?php
-      error_reporting(E_ALL);
-      ini_set('display_errors', 1);
-      ini_set('display_startup_errors', 1);
-         $api_url = 'https://pokeapi.co/api/v2/pokemon';
-         $response = file_get_contents($api_url);
-         $data = json_decode($response, true);
-         
-         // Récupére et affiche des Pokemons de l'API
-         $apiPokemons = [];
-         foreach ($data['results'] as $key => $pokemon) {
-             $pokemon_url = $pokemon['url'];
-             $pokemon_data = json_decode(file_get_contents($pokemon_url), true);
-         
-             $pokemon_moves = array_map(function($move) {
-                 return $move['move']['name'];
-             }, $pokemon_data['moves']);
-         
-             $pokemon_types = array_map(function($type) {
-                 return $type['type']['name'];
-             }, $pokemon_data['types']);
-         
-             // Création de l'objet Pokemon
-             $apiPokemon = new Pokemon(
-                 $pokemon_data['id'],
-                 $pokemon_data['name'],
-                 $pokemon_data['sprites']['front_default'],
-                 $pokemon_moves,
-                 $pokemon_types
-             );
-         
-             // Ajout du Pokemon à la liste des Pokemons
-             $apiPokemons[] = $apiPokemon;
-         }
-         //En html ça foirait alors j'ai tout fait en php
-         echo "<table border='1'>";
-         echo "<tr><th>ID</th><th>Name</th><th>Sprite</th><th>Types</th><th>Compétences</th><th>Action</th></tr>";
-         
-         foreach($apiPokemons as $pokemon):
-             echo "<tr>";
-             echo "<td>{$pokemon->id}</td>";
-             echo "<td>{$pokemon->name}</td>";
-             echo "<td><img src='{$pokemon->sprite}' alt='{$pokemon->name}' /></td>";
-             echo "<td>";
-             foreach($pokemon->type as $type) {
-                 echo $type . " ";
-             }
-             echo "</td>";
-             echo "<td>";
-             echo "<button class='btn btn-primary action-button' type='button' data-toggle='collapse' data-target='#apiMoves{$pokemon->id}' aria-expanded='false' aria-controls='apiMoves{$pokemon->id}'>
-                   Afficher/Masquer Compétences
-                 </button>";
-             echo "<div class='collapse' id='apiMoves{$pokemon->id}'>
-                   <div class='card card-body'>";
-             foreach($pokemon->moves as $move) {
-                 echo $move . " ";
-             }
-             echo "</div></div></td>";
-             echo "<td><button class='add-pokemon action-button' data-id='{$pokemon->id}'>Ajouter aux favoris</button></td>";
-             echo "</tr>";
-         endforeach;
-         
-         echo "</table>";
-         ?>
-<script>
+         error_reporting(E_ALL);
+         ini_set('display_errors', 1);
+         ini_set('display_startup_errors', 1);
+            $api_url = 'https://pokeapi.co/api/v2/pokemon';
+            $response = file_get_contents($api_url);
+            $data = json_decode($response, true);
+            
+            // Récupére et affiche des Pokemons de l'API
+            $apiPokemons = [];
+            foreach ($data['results'] as $key => $pokemon) {
+                $pokemon_url = $pokemon['url'];
+                $pokemon_data = json_decode(file_get_contents($pokemon_url), true);
+            
+                $pokemon_moves = array_map(function($move) {
+                    return $move['move']['name'];
+                }, $pokemon_data['moves']);
+            
+                $pokemon_types = array_map(function($type) {
+                    return $type['type']['name'];
+                }, $pokemon_data['types']);
+            
+                // Création de l'objet Pokemon
+                $apiPokemon = new Pokemon(
+                    $pokemon_data['id'],
+                    $pokemon_data['name'],
+                    $pokemon_data['sprites']['front_default'],
+                    $pokemon_moves,
+                    $pokemon_types
+                );
+            
+                // Ajout du Pokemon à la liste des Pokemons
+                $apiPokemons[] = $apiPokemon;
+            }
+            //En html ça foirait alors j'ai tout fait en php
+            echo "<table border='1'>";
+            echo "<tr><th>ID</th><th>Name</th><th>Sprite</th><th>Types</th><th>Compétences</th><th>Action</th></tr>";
+            
+            foreach($apiPokemons as $pokemon):
+                echo "<tr>";
+                echo "<td>{$pokemon->id}</td>";
+                echo "<td>{$pokemon->name}</td>";
+                echo "<td><img src='{$pokemon->sprite}' alt='{$pokemon->name}' /></td>";
+                echo "<td>";
+                foreach($pokemon->type as $type) {
+                    echo $type . " ";
+                }
+                echo "</td>";
+                echo "<td>";
+                echo "<button class='btn btn-primary action-button' type='button' data-toggle='collapse' data-target='#apiMoves{$pokemon->id}' aria-expanded='false' aria-controls='apiMoves{$pokemon->id}'>
+                      Afficher/Masquer Compétences
+                    </button>";
+                echo "<div class='collapse' id='apiMoves{$pokemon->id}'>
+                      <div class='card card-body'>";
+                foreach($pokemon->moves as $move) {
+                    echo $move . " ";
+                }
+                echo "</div></div></td>";
+                echo "<td><button class='add-pokemon action-button' data-id='{$pokemon->id}'>Ajouter aux favoris</button></td>";
+                echo "</tr>";
+            endforeach;
+            
+            echo "</table>";
+            ?>
+      <script>
          $(document).ready(function(){
              // Event listener pour l'ajout d'un Pokemon aux favoris
              $(".add-pokemon").click(function(){
              var pokemonId = $(this).data('id'); 
-
+         
             $.get('https://pokeapi.co/api/v2/pokemon/'+pokemonId)
             .done(function(results) {
                 let name = results.name;
                 let sprite = results.sprites.front_default;
                 let types = results.types;
                 let moves = results.moves;
-
-                
-                $.ajax({
-                 url: 'pokemons.php?store=1', 
-                 type: 'post',
-                 data: {name: name, sprite: sprite, types: types, moves: moves},
-                 success: function(response) {
-                     $('#pokemonName').text(response); 
-                     $('#myModal').modal('show'); 
-                     location.reload();
-                 },
-                 error: function(jqXHR, textStatus, errorThrown) {
-                     alert('Error: ' + jqXHR.responseText);
-                 }});
+               // console.log(name);
+               // console.log(sprite);
+               // console.log(types);
+               // console.log(stringify(moves));
+               $.ajax({
+         url: 'pokemons.php?store=1', 
+         type: 'post',
+         data: {
+         name: name, 
+         sprite: sprite, 
+         types: JSON.stringify(types.map(type => type.type.name)), 
+         moves: JSON.stringify(moves.map(move => move.move.name))
+         },
+         success: function(response) {
+         $('#pokemonName').text(response); 
+         $('#myModal').modal('show'); 
+         location.reload();
+         },
+         error: function(jqXHR, textStatus, errorThrown) {
+         alert('Error: ' + jqXHR.responseText);
+         }
+         });
+         
             }).fail(function(err) {
                         console.warn('error is', err);
                     });
@@ -236,6 +243,19 @@
                });
             });
          });
+         
+         // function stringify(arr){
+         //    let string = '[';
+         //    for(let i in arr){
+         //       if(i < arr.length - 1){
+         //          string += '"'+ arr[i].move.name +'",';
+         //       } else {
+         //          string += '"'+ arr[i].move.name +'"';
+         //       }
+         //    }
+         //    //console.log(string + "]");
+         //    return string + ']';
+         // }
          
          //Bannière
          // On récupère un random Pokemon depuis l'API et l'affiche
