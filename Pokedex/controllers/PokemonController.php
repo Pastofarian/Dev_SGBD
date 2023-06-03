@@ -27,16 +27,16 @@ class PokemonController
 
     public function store($data)
     {
-        $types = json_decode(stripslashes($data['types']));
-        $moves = json_decode(stripslashes($data['moves']));
+        $types = json_decode(stripslashes($data['types'])); // retire les backslashes de la chaîne JSON 'types' et la transforme variable PHP
+        $moves = json_decode(stripslashes($data['moves'])); // retire les backslashes de la chaîne JSON 'moves' et et la transforme variable PHP
 
-        $pokemon = new Pokemon(false, $data['name'], $data['sprite'], $moves, $types);
+        $pokemon = new Pokemon(false, $data['name'], $data['sprite'], $moves, $types); //false car AUTO_INCREMENT
 
         $pokemon->save();
-        echo $pokemon->name;
+        echo $pokemon->name; // pour afficher le nom du pokemon ajouté dans la modale
         return;
     }
-    public function list()
+    public function list() //pour afficher la liste complète des pokemons dans pokemonList.php
     {
         $favPokemons = Pokemon::all();
         return include 'views/pokemonList.php';
@@ -44,10 +44,10 @@ class PokemonController
 
     public function destroy($id)
     {
-        $pokemon = Pokemon::find($id);
+        $pokemon = Pokemon::find($id); //pour trouver le pokemon à supprimer
         $pokemonName = $pokemon->name;
         $pokemon->delete();
-        echo $pokemonName;
+        echo $pokemonName; //pour afficher le nom du pokemon supprimé dans la modale
         return;
     }
 }

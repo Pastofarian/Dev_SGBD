@@ -23,8 +23,6 @@ if (!empty($_GET["updateView"])) {
     $controller->create();
 } else if (!empty($_GET["list"])) {
     $controller->list();
-// } else if (!empty($_GET["search"])) {
-//     $controller->search($_POST["name"]);
 } else {
     $controller->index();
 }
