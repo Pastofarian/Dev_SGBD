@@ -3,12 +3,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 
-require '../autoload.php';
 class PokemonController {
     
     public function index () {
         $favPokemons = Pokemon::all();
-        var_dump($favPokemons);
         return include 'views/pokemonView.php';
     }
     
