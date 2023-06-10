@@ -1,3 +1,3 @@
 <?php
-header('Location: views/pokemonView.php');
+header('Location: ./pokemons.php');
 exit;
