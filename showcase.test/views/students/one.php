@@ -1,1 +1,0 @@
-<h2><?= $student->name; ?></h2>
