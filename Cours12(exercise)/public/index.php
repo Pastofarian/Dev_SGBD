@@ -7,6 +7,7 @@ ini_set('display_startup_errors', 1);
 header('Location: ./guitarists.php');
 exit;
 
+
 /*
 require('autoload.php');
 
